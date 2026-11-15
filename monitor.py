@@ -298,14 +298,13 @@ def cmd_remove(args) -> None:
 def checar_todos() -> None:
     produtos = carregar()
     if not produtos:
-        print("Nenhum produto para checar.")
         return
     for p in produtos:
         try:
             novo, titulo = buscar(p["url"], p.get("seletor"))
             if not p.get("nome"):
                 p["nome"] = titulo[:80]
-        except requests.RequestException as e:
+        except Exception as e:
             print(f"[{p['id']}] erro ao acessar: {e}")
             continue
         if novo is None:
@@ -333,8 +332,216 @@ def checar_todos() -> None:
     salvar(produtos)
 
 
+# --------------------------------------------------------------------------- #
+# Monitoramento por BUSCA (todas as placas de um modelo numa loja)
+# --------------------------------------------------------------------------- #
+ARQUIVO_BUSCAS = Path(os.environ.get("MONITOR_BUSCAS", Path(__file__).with_name("buscas.json")))
+LIMITE_AVISOS_SEPARADOS = 6   # acima disso, manda um resumo único
+
+
+def _bool(v) -> bool:
+    return v is True or str(v).strip().lower() in ("true", "1", "sim")
+
+
+def _num(v) -> float | None:
+    try:
+        f = float(v)
+        return f if f > 0 else None
+    except (TypeError, ValueError):
+        return None
+
+
+def buscar_kabum(termo: str, filtro: str) -> dict[str, dict]:
+    """Retorna {id: item} com todas as placas da busca na Kabum cujo nome casa com o filtro."""
+    regex = re.compile(filtro, re.I)
+    slug = re.sub(r"\s+", "-", termo.strip().lower())
+    itens: dict[str, dict] = {}
+    for pagina in range(1, 6):
+        url = f"https://www.kabum.com.br/busca/{slug}?page_number={pagina}&page_size=100"
+        resp = requests.get(url, headers=HEADERS, timeout=40)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        achados: list[dict] = []
+        for tag in soup.find_all("script"):
+            if tag.get("id") == "__NEXT_DATA__" or tag.get("type") in ("application/json",):
+                try:
+                    _walk(json.loads(tag.string or ""), achados)
+                except ValueError:
+                    pass
+        produtos = [o for o in achados if o.get("code") and o.get("name")]
+        novos = 0
+        for o in produtos:
+            nome = str(o["name"])
+            if not regex.search(nome):
+                continue
+            if "placa de v" not in (str(o.get("category", "")) + nome).lower():
+                continue  # ignora PCs montados, notebooks etc.
+            chave = f"kabum:{o['code']}"
+            if chave in itens:
+                continue
+            oferta = o.get("offer") if isinstance(o.get("offer"), dict) else None
+            avista = _num((oferta or {}).get("priceWithDiscount")) or _num(o.get("priceWithDiscount")) \
+                or _num(o.get("price"))
+            parcelado = _num((oferta or {}).get("price")) or _num(o.get("price"))
+            disponivel = _bool(o.get("available"))
+            vendedor = str(o.get("sellerName") or "KaBuM!")
+            itens[chave] = {
+                "loja": "Kabum" + ("" if vendedor in ("KaBuM!", "") else f" (vendido por {vendedor})"),
+                "nome": nome[:110],
+                "url": f"https://www.kabum.com.br/produto/{o['code']}/{o.get('friendlyName', '')}",
+                "preco": avista if disponivel else None,
+                "parcelado": parcelado if disponivel else None,
+                "disponivel": disponivel,
+            }
+            novos += 1
+        if len({o["code"] for o in produtos}) < 100 or novos == 0 and pagina > 1:
+            break
+    return itens
+
+
+def _preco_card_ml(card) -> float | None:
+    atual = card.select_one(".poly-price__current .andes-money-amount") or \
+        next((m for m in card.select(".andes-money-amount")
+              if "previous" not in " ".join(m.get("class", []))), None)
+    if not atual:
+        return None
+    if atual.get("aria-label"):
+        m = re.search(r"([\d.]+)\s*reais(?:\s*com\s*(\d+)\s*centavos)?", atual["aria-label"])
+        if m:
+            return float(m.group(1).replace(".", "") + "." + (m.group(2) or "0"))
+    frac = atual.select_one(".andes-money-amount__fraction")
+    cents = atual.select_one(".andes-money-amount__cents")
+    if frac:
+        return parse_preco(frac.get_text(strip=True).replace(".", "") + "," + (cents.get_text(strip=True) if cents else "00"))
+    return parse_preco(atual.get_text(" ", strip=True))
+
+
+def buscar_ml_loja(url: str, filtro: str, nome_loja: str) -> dict[str, dict]:
+    """Lê a vitrine de uma loja no Mercado Livre e pega as placas que casam com o filtro."""
+    regex = re.compile(filtro, re.I)
+    resp = requests.get(url, headers=HEADERS, timeout=40)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+    itens: dict[str, dict] = {}
+    for card in soup.select(".poly-card"):
+        titulo_el = card.select_one(".poly-component__title") or card.select_one("a[href]")
+        link_el = card.select_one("a[href]")
+        if not titulo_el or not link_el:
+            continue
+        nome = titulo_el.get_text(" ", strip=True)
+        if not regex.search(nome) or "placa" not in nome.lower():
+            continue
+        link = link_el["href"].split("#")[0]
+        m = re.search(r"(MLBU?-?\d+)", link)
+        chave = f"ml:{m.group(1) if m else link.split('?')[0]}"
+        itens[chave] = {
+            "loja": f"{nome_loja} (Mercado Livre)",
+            "nome": nome[:110],
+            "url": link.split("?")[0] if m else link,
+            "preco": _preco_card_ml(card),
+            "parcelado": None,
+            "disponivel": True,
+        }
+    return itens
+
+
+def carregar_buscas() -> dict:
+    if ARQUIVO_BUSCAS.exists():
+        return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
+    return {"buscas": [], "itens": {}}
+
+
+def salvar_buscas(dados: dict) -> None:
+    ARQUIVO_BUSCAS.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def checar_buscas() -> None:
+    dados = carregar_buscas()
+    if not dados.get("buscas"):
+        return
+    estado = dados.setdefault("itens", {})
+    eventos: list[tuple[str, str, str]] = []   # (título, mensagem, link)
+
+    for b in dados["buscas"]:
+        rotulo = b.get("rotulo") or b.get("termo") or b.get("url")
+        try:
+            if b["tipo"] == "kabum":
+                encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "ml_loja":
+                encontrados = buscar_ml_loja(b["url"], b["filtro"], b.get("nome_loja", "Loja"))
+            else:
+                print(f"tipo de busca desconhecido: {b['tipo']}")
+                continue
+        except Exception as e:
+            print(f"[busca {rotulo}] erro — {e}")
+            continue
+
+        primeira_vez = not b.get("inicializada")
+        com_preco = sum(1 for i in encontrados.values() if i["preco"])
+        print(f"[busca {rotulo}] {len(encontrados)} anúncios ({com_preco} com estoque/preço)")
+
+        for chave, item in encontrados.items():
+            ant = estado.get(chave)
+            novo = item["preco"]
+            if ant is None:
+                item["menor_preco"] = novo
+                item["historico"] = [{"data": agora(), "preco": novo}] if novo else []
+                item["visto_em"] = agora()
+                estado[chave] = item
+                if not primeira_vez:
+                    eventos.append((f"🆕 Novo anúncio: {item['nome'][:60]}",
+                                    f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"]))
+                continue
+
+            velho = ant.get("preco")
+            nome = item["nome"][:60]
+            if novo and velho and abs(novo - velho) >= 0.01:
+                pct = (novo - velho) / velho * 100
+                seta = "📉 Baixou" if novo < velho else "📈 Subiu"
+                extra = "\n🏆 Menor preço já registrado!" if ant.get("menor_preco") and novo < ant["menor_preco"] else ""
+                eventos.append((f"{seta}: {nome}",
+                                f"{item['loja']}\nDe {brl(velho)} para {brl(novo)} ({pct:+.1f}%){extra}",
+                                item["url"]))
+            elif novo and not velho:
+                eventos.append((f"✅ Voltou ao estoque: {nome}", f"{item['loja']}\n{brl(novo)}", item["url"]))
+            elif velho and not novo and ant.get("disponivel"):
+                eventos.append((f"⛔ Esgotou: {nome}", f"{item['loja']}\nÚltimo preço: {brl(velho)}", item["url"]))
+
+            if novo != velho:
+                hist = ant.setdefault("historico", [])
+                hist.append({"data": agora(), "preco": novo})
+                del hist[:-60]
+            ant.update({k: item[k] for k in ("loja", "nome", "url", "preco", "parcelado", "disponivel")})
+            if novo:
+                ant["menor_preco"] = min(filter(None, [ant.get("menor_preco"), novo]))
+            ant["visto_em"] = agora()
+
+        b["inicializada"] = True
+
+    if len(eventos) > LIMITE_AVISOS_SEPARADOS:
+        linhas = [f"{t}\n   {m.splitlines()[-1]}" for t, m, _ in eventos]
+        texto = "\n".join(linhas)
+        if len(texto) > 3500:
+            texto = texto[:3500] + "\n…"
+        notificar(f"🔔 {len(eventos)} mudanças de preço/estoque", texto)
+    else:
+        for t, m, link in eventos:
+            notificar(t, m, link)
+    salvar_buscas(dados)
+
+
+def cmd_buscas(_args) -> None:
+    dados = carregar_buscas()
+    for b in dados.get("buscas", []):
+        print(f"• {b.get('rotulo')}  ({b['tipo']})")
+    itens = sorted(dados.get("itens", {}).values(), key=lambda i: (i["preco"] is None, i["preco"] or 0))
+    for i in itens:
+        print(f"  {brl(i['preco']):>14}  {i['loja'][:28]:<28}  {i['nome'][:70]}")
+
+
 def cmd_check(_args) -> None:
     checar_todos()
+    checar_buscas()
 
 
 def cmd_run(args) -> None:
@@ -342,6 +549,7 @@ def cmd_run(args) -> None:
     while True:
         print(f"\n— {agora()} —")
         checar_todos()
+        checar_buscas()
         time.sleep(args.minutos * 60)
 
 
@@ -431,6 +639,7 @@ def main() -> None:
     r.set_defaults(func=cmd_remove)
 
     sub.add_parser("check", help="checar preços uma vez").set_defaults(func=cmd_check)
+    sub.add_parser("buscas", help="listar placas encontradas nas buscas").set_defaults(func=cmd_buscas)
 
     rn = sub.add_parser("run", help="checar continuamente")
     rn.add_argument("--minutos", type=float, default=60)

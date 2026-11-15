@@ -1,0 +1,24 @@
+{
+  "buscas": [
+    {
+      "rotulo": "Kabum · RTX 5070 Ti",
+      "tipo": "kabum",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "Kabum · RTX 5080",
+      "tipo": "kabum",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Setup Ninja · RTX 5070 Ti / 5080",
+      "tipo": "ml_loja",
+      "url": "https://www.mercadolivre.com.br/loja/setup-ninja",
+      "nome_loja": "Setup Ninja",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+    }
+  ],
+  "itens": {}
+}

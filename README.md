@@ -57,6 +57,24 @@ De R$ 3.499,00 para R$ 2.999,00 (-14.3%)
 
 ---
 
+## Monitoramento por busca (todas as placas de um modelo)
+
+O arquivo `buscas.json` define buscas que acompanham **todos os anúncios** de um modelo numa loja.
+Hoje ele cobre:
+- **Kabum:** todas as RTX 5070 Ti e todas as RTX 5080, inclusive as de vendedores parceiros
+- **Setup Ninja (Mercado Livre):** RTX 5070 Ti e RTX 5080 da vitrine da loja
+
+Você recebe aviso quando:
+- 📉📈 o preço à vista (PIX) muda
+- 🆕 aparece um anúncio novo
+- ✅ um produto volta ao estoque
+- ⛔ um produto esgota
+
+Se houver mais de 6 mudanças de uma vez, chega uma única notificação com o resumo.
+Para ver a lista atual com os preços, rode `python monitor.py buscas`, ou abra o `buscas.json` no GitHub.
+
+Lojas testadas que **bloqueiam** o acesso a partir do GitHub: Amazon, Netshoes, Pichau, Magalu e Terabyte.
+
 ## Usando no próprio computador (opcional)
 
 ```bash
