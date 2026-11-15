@@ -468,7 +468,9 @@ def checar_buscas() -> None:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
             elif b["tipo"] == "ml_loja":
-                encontrados = buscar_ml_loja(b["url"], b["filtro"], b.get("nome_loja", "Loja"))
+                encontrados = {}
+                for u in b.get("urls") or [b["url"]]:
+                    encontrados.update(buscar_ml_loja(u, b["filtro"], b.get("nome_loja", "Loja")))
             else:
                 print(f"tipo de busca desconhecido: {b['tipo']}")
                 continue
