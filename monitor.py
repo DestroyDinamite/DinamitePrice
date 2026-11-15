@@ -603,6 +603,13 @@ def cmd_debug(args) -> None:
             interessantes = {k: str(v)[:160] for k, v in o.items()
                              if re.search(r"price|preco|offer|avail|stock|url|link|name|code|seller", k, re.I)}
             print("   ", json.dumps(interessantes, ensure_ascii=False)[:1200])
+        hrefs = sorted({x["href"].split("?")[0] for x in soup.select("a[href]")
+                        if re.search(r"lista|_Loja|/loja/|busca|search", x["href"])})
+        if hrefs:
+            print(f"  links de listagem ({len(hrefs)}):", " ".join(hrefs[:15]))
+        placas = [c.get_text(" ", strip=True)[:90] for c in soup.select(".poly-card")
+                  if re.search(r"5070|5080|placa", c.get_text(" ", strip=True), re.I)]
+        print(f"  cards com placa/5070/5080: {len(placas)}", placas[:4])
         for sel in (".poly-card", ".ui-search-layout__item", ".andes-card"):
             cards = soup.select(sel)
             if cards:
