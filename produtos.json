@@ -10,12 +10,17 @@
   },
   {
     "id": 2,
-    "nome": "",
+    "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti GAMING OC 16G NVIDIA GeForce, 16GB GDDR7, 25",
     "url": "https://www.kabum.com.br/produto/714565/placa-de-video-gigabyte-rtx-5070-ti-gaming-oc-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507tgo-00-g10",
     "seletor": null,
-    "preco": null,
-    "menor_preco": null,
-    "historico": []
+    "preco": 15999.99,
+    "menor_preco": 15999.99,
+    "historico": [
+      {
+        "data": "2026-11-15 23:22",
+        "preco": 15999.99
+      }
+    ]
   },
   {
     "id": 3,
