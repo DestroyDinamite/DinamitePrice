@@ -388,9 +388,21 @@ def cmd_debug(args) -> None:
                 except ValueError:
                     pass
         print(f"  objetos tipo produto em JSON: {len(achados)}")
-        for o in achados[:3]:
-            resumo = {k: (str(v)[:70]) for k, v in o.items() if not isinstance(v, (dict, list))}
-            print("   ", json.dumps(resumo, ensure_ascii=False)[:600])
+        produtos_json = [o for o in achados if "code" in o] or achados
+        print(f"  com 'code': {len([o for o in achados if 'code' in o])}")
+        for o in produtos_json[:2]:
+            print("    chaves:", sorted(o.keys()))
+            interessantes = {k: str(v)[:160] for k, v in o.items()
+                             if re.search(r"price|preco|offer|avail|stock|url|link|name|code|seller", k, re.I)}
+            print("   ", json.dumps(interessantes, ensure_ascii=False)[:1200])
+        for sel in (".poly-card", ".ui-search-layout__item", ".andes-card"):
+            cards = soup.select(sel)
+            if cards:
+                print(f"  cards {sel}: {len(cards)}")
+                for c in cards[:3]:
+                    a = c.select_one("a[href]")
+                    print("    -", c.get_text(" | ", strip=True)[:200], "→", (a["href"][:120] if a else ""))
+                break
         if not achados:
             for sel in ("[class*=productCard]", "[class*=product-item]", "[class*=pbox]", "[class*=price]"):
                 el = soup.select(sel)
