@@ -4,21 +4,617 @@
       "rotulo": "Kabum · RTX 5070 Ti",
       "tipo": "kabum",
       "termo": "rtx 5070 ti",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b",
+      "inicializada": true
     },
     {
       "rotulo": "Kabum · RTX 5080",
       "tipo": "kabum",
       "termo": "rtx 5080",
-      "filtro": "(?<!\\d)5080(?!\\d)"
+      "filtro": "(?<!\\d)5080(?!\\d)",
+      "inicializada": true
     },
     {
       "rotulo": "Setup Ninja · RTX 5070 Ti / 5080",
       "tipo": "ml_loja",
       "url": "https://www.mercadolivre.com.br/loja/setup-ninja",
       "nome_loja": "Setup Ninja",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
+      "inicializada": true
     }
   ],
-  "itens": {}
+  "itens": {
+    "kabum:714568": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti WINDFORCE OC SFF 16G NVIDIA GeForce, 16GB GDDR7, 256bits, DLSS, Ray Tracin",
+      "url": "https://www.kabum.com.br/produto/714568/placa-de-video-gigabyte-rtx-5070-ti-windforce-oc-sff-16g-nvidia-geforce-16gb-gddr7-256bits-dlss-ray-tracing-9vn507two-00-g10",
+      "preco": 10999.99,
+      "parcelado": 12222.21,
+      "disponivel": true,
+      "menor_preco": 10999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 10999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:954798": {
+      "loja": "Kabum (vendido por VIXE E-COMMERCE)",
+      "nome": "Gpu Msi RTX 5070 Ti 16gb Gaming Trio Oc, Gddr7, 256-bits, 3x Dp / 1x HDMI - G507t-16gtc",
+      "url": "https://www.kabum.com.br/produto/954798/placa-de-video-nv-rtx-5070-ti-16gb-gddr7-256bits-msi-gaming-trio-oc-plus-geforce",
+      "preco": 18339.75,
+      "parcelado": 18339.75,
+      "disponivel": true,
+      "menor_preco": 18339.75,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 18339.75
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:857022": {
+      "loja": "Kabum (vendido por TERABYTE)",
+      "nome": "Placa De Vídeo Msi Nvidia Geforce RTX 5070 Ti Shadow 3x Oc, 16gb, Gddr7, Dlss, Ray Tracing, 912-v531-465",
+      "url": "https://www.kabum.com.br/produto/857022/placa-de-video-nvidia-geforce-msi-rtx5070ti-16gb-gddr7-256its-shadow-3x-oc-912-v531-097",
+      "preco": 11844.99,
+      "parcelado": 11844.99,
+      "disponivel": true,
+      "menor_preco": 11844.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 11844.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:714565": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti GAMING OC 16G NVIDIA GeForce, 16GB GDDR7, 256bits, RGB, DLSS, Ray Tracing ",
+      "url": "https://www.kabum.com.br/produto/714565/placa-de-video-gigabyte-rtx-5070-ti-gaming-oc-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507tgo-00-g10",
+      "preco": 15999.99,
+      "parcelado": 18823.52,
+      "disponivel": true,
+      "menor_preco": 15999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 15999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:882086": {
+      "loja": "Kabum (vendido por TERABYTE)",
+      "nome": "Placa De Vídeo Asus Prime Nvidia Geforce RTX 5070 Ti Oc Edition, 16gb, Gddr7, Dlss, Ray Tracing, Prime-RTX5070",
+      "url": "https://www.kabum.com.br/produto/882086/placa-de-video-asus-geforce-rtx-5070-ti-prime-oc-16gb-gddr7-256bits-prime-rtx5070ti-o16g",
+      "preco": 10345.49,
+      "parcelado": 11494.99,
+      "disponivel": true,
+      "menor_preco": 10345.49,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 10345.49
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:726011": {
+      "loja": "Kabum (vendido por LOGIN INFORMATICA)",
+      "nome": "Placa De Vídeo Msi Nvidia Geforce RTX 5070 Ti Ventus 3x Oc, 16gb, Gddr7, Dlss, Ray Tracing, G507t-16v3c",
+      "url": "https://www.kabum.com.br/produto/726011/placa-de-video-rtx-5070-ti-16gb-gddr7-256bits-ventus-3x-oc-msi-912-v531-092",
+      "preco": 8949.0,
+      "parcelado": 9520.21,
+      "disponivel": true,
+      "menor_preco": 8949.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 8949.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1069580": {
+      "loja": "Kabum (vendido por Victory)",
+      "nome": "Placa De Vídeo Msi Nvidia Geforce RTX 5070 Ti Frieren Edition Oc, 16gb, Gddr7, Dlss, Ray Tracing, 912-v531-682",
+      "url": "https://www.kabum.com.br/produto/1069580/placa-de-video-msi-nvidia-geforce-rtx-5070-ti-frieren-edition-oc-16gb-gddr7-dlss-ray-tracing-912-v531-682",
+      "preco": 14399.99,
+      "parcelado": 15999.99,
+      "disponivel": true,
+      "menor_preco": 14399.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14399.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:714564": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti AERO OC 16G NVIDIA GeForce, 16GB GDDR7, 256bits, RGB, DLSS, Ray Tracing - ",
+      "url": "https://www.kabum.com.br/produto/714564/placa-de-video-gigabyte-rtx-5070-ti-aero-oc-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507tao-00-g10",
+      "preco": 12999.99,
+      "parcelado": 15294.11,
+      "disponivel": true,
+      "menor_preco": 12999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:714566": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti EAGLE OC ICE SFF 16G NVIDIA GeForce, 16GB GDDR7, 256bits, RGB, DLSS, Ray T",
+      "url": "https://www.kabum.com.br/produto/714566/placa-de-video-gigabyte-rtx-5070-ti-eagle-oc-ice-sff-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507teoi-00-g10",
+      "preco": 14999.99,
+      "parcelado": 17647.05,
+      "disponivel": true,
+      "menor_preco": 14999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:714563": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti AORUS MASTER 16G NVIDIA GeForce, 16GB GDDR7, 256bits, RGB, DLSS, Ray Traci",
+      "url": "https://www.kabum.com.br/produto/714563/placa-de-video-gigabyte-rtx-5070-ti-aorus-master-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507tam-00-g10",
+      "preco": 13999.99,
+      "parcelado": 16470.58,
+      "disponivel": true,
+      "menor_preco": 13999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 13999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:714567": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti EAGLE OC SFF 16G NVIDIA GeForce, 16GB GDDR7, 256bits, RGB, DLSS, Ray Traci",
+      "url": "https://www.kabum.com.br/produto/714567/placa-de-video-gigabyte-rtx-5070-ti-eagle-oc-sff-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507teo-00-g10",
+      "preco": 13999.99,
+      "parcelado": 16470.58,
+      "disponivel": true,
+      "menor_preco": 13999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 13999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:753245": {
+      "loja": "Kabum (vendido por Bits & Bytes)",
+      "nome": "Placa De Video Gigabyte RTX 5070 Ti Aero Oc 16gb Gddr7 256 Bits Gv-n507taero Oc-16gd",
+      "url": "https://www.kabum.com.br/produto/753245/placa-de-video-gigabyte-rtx-5070-ti-aero-oc-16gb-gddr7-256-bits-gv-n507taero-oc-16gd",
+      "preco": 18950.16,
+      "parcelado": 18950.16,
+      "disponivel": true,
+      "menor_preco": 18950.16,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 18950.16
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:885284": {
+      "loja": "Kabum (vendido por Victory)",
+      "nome": "Placa De Vídeo Geforce Zotac RTX 5070 Ti Solid Sff Oc, 16gb Gddr7, 256-bits, Zt-b50710j3-10p",
+      "url": "https://www.kabum.com.br/produto/885284/placa-de-video-geforce-zotac-rtx-5070-ti-solid-sff-oc-16gb-gddr7-256-bits-zt-b50710j3-10p",
+      "preco": 9899.91,
+      "parcelado": 10999.9,
+      "disponivel": true,
+      "menor_preco": 9899.91,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 9899.91
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:753243": {
+      "loja": "Kabum (vendido por STI COMPUTADORES)",
+      "nome": "Placa De Vídeo Gigabyte Geforce RTX 5070 Ti Gaming Oc 16gb Gddr7 256 Bits - Gv-n507tgaming Oc-16gd",
+      "url": "https://www.kabum.com.br/produto/753243/placa-de-video-gigabyte-geforce-rtx-5070-ti-gaming-oc-16gb-gddr7-256-bits-gv-n507tgaming-oc-16gd",
+      "preco": 14399.98,
+      "parcelado": 15999.98,
+      "disponivel": true,
+      "menor_preco": 14399.98,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14399.98
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:753244": {
+      "loja": "Kabum (vendido por Victory)",
+      "nome": "Placa De Video Gigabyte RTX 5070 Ti Aorus Master 16gb Gddr7 256 Bits Gv-n507taorus M-16gd",
+      "url": "https://www.kabum.com.br/produto/753244/placa-de-video-gigabyte-rtx-5070-ti-aorus-master-16gb-gddr7-256-bits-gv-n507taorus-m-16gd",
+      "preco": 17999.99,
+      "parcelado": 17999.99,
+      "disponivel": true,
+      "menor_preco": 17999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 17999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1070462": {
+      "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
+      "nome": "Placa De Vídeo Zotac Gaming Nvidia Geforce RTX 5070 Ti Solid Sff Oc, 16gb, Gddr7, Dlss, Ray Tracing, Zt-b50710",
+      "url": "https://www.kabum.com.br/produto/1070462/placa-de-video-zotac-rtx-5070-ti-16gb-gddr7-solid-sff-oc-256-bits",
+      "preco": 12590.79,
+      "parcelado": 12590.79,
+      "disponivel": true,
+      "menor_preco": 12590.79,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12590.79
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:697891": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Inno3D RTX 5080 X3 NVIDIA GeForce, 16GB, GDDR7, G-Sync, Ray Tracing, DLSS 4, HDR -  N50803-16D7",
+      "url": "https://www.kabum.com.br/produto/697891/placa-de-video-inno3d-rtx-5080-x3-nvidia-geforce-16gb-gddr7-g-sync-ray-tracing-dlss-4-hdr-n50803-16d7-176068n",
+      "preco": 11999.99,
+      "parcelado": 13333.32,
+      "disponivel": true,
+      "menor_preco": 11999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 11999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:776956": {
+      "loja": "Kabum (vendido por EFACINI)",
+      "nome": "Placa de Vídeo RTX 5080 SHADOW 3X OC 16G MSI NVIDIA GeForce, 16GB GDDR7, 256bits, DLSS, Ray Tracing - 912-V531",
+      "url": "https://www.kabum.com.br/produto/776956/placa-de-video-rtx-5080-shadow-3x-oc-16g-msi-nvidia-geforce-16gb-gddr7-256bits-dlss-ray-tracing-912-v531-031",
+      "preco": 12559.9,
+      "parcelado": 13652.07,
+      "disponivel": true,
+      "menor_preco": 12559.9,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12559.9
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:776391": {
+      "loja": "Kabum (vendido por Cia PC)",
+      "nome": "Placa De Vídeo Msi Nvidia Geforce RTX 5080 Gaming Trio Oc, 16gb, Gddr7, Dlss, Ray Tracing, G5080-16gtc",
+      "url": "https://www.kabum.com.br/produto/776391/placa-de-video-msi-rtx-5080-16g-gaming-trio-oc-nvidia-geforce-16gb-gddr7-g-sync-ray-tracing-dlss-4-hdr-g5080-16g",
+      "preco": 18675.0,
+      "parcelado": 18675.0,
+      "disponivel": true,
+      "menor_preco": 18675.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 18675.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:954578": {
+      "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
+      "nome": "Placa De Video Msi Geforce RTX 5080 Inspire 3x Oc 16gb Gddr7 256 Bits - 912-v531-203",
+      "url": "https://www.kabum.com.br/produto/954578/placa-de-video-msi-geforce-rtx-5080-inspire-3x-oc-16gb-gddr7-256-bits-912-v531-203",
+      "preco": 17818.07,
+      "parcelado": 17818.07,
+      "disponivel": true,
+      "menor_preco": 17818.07,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 17818.07
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:726691": {
+      "loja": "Kabum (vendido por LOGIN INFORMATICA)",
+      "nome": "Placa De Vídeo Gigabyte Nvidia Geforce RTX 5080 Windforce 16gb Gddr7 256bits",
+      "url": "https://www.kabum.com.br/produto/726691/placa-de-video-gigabyte-nvidia-geforce-rtx-5080-windforce-16gb-gddr7-256bits",
+      "preco": 14799.0,
+      "parcelado": 14799.0,
+      "disponivel": true,
+      "menor_preco": 14799.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14799.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1086061": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Zotac Gaming GeForce RTX 5080 Solid Core OC NVIDIA GeForce, 16GB, GDDR7, 256-bits, Triple Fan, ",
+      "url": "https://www.kabum.com.br/produto/1086061/placa-de-video-zotac-rtx-5080-solid-core-oc-nvidia-geforce-16gb-gddr7-256bits-zt-b50800j2-10a-",
+      "preco": 12999.99,
+      "parcelado": 14444.43,
+      "disponivel": true,
+      "menor_preco": 12999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1070621": {
+      "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
+      "nome": "Placa De Vídeo Zotac Gaming Nvidia Geforce RTX 5080 Solid Core Oc 16gb Gddr7 Dlss Ray Tracing",
+      "url": "https://www.kabum.com.br/produto/1070621/placa-de-video-zotac-gaming-nvidia-geforce-rtx-5080-solid-core-oc-16gb-gddr7-dlss-ray-tracing",
+      "preco": 12799.0,
+      "parcelado": 12799.0,
+      "disponivel": true,
+      "menor_preco": 12799.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12799.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:697890": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Inno3D RTX 5080 X3 OC NVIDIA GeForce, 16GB, GDDR7, G-Sync, Ray Tracing, DLSS 4, HDR - N50803-16",
+      "url": "https://www.kabum.com.br/produto/697890/placa-de-video-inno3d-rtx-5080-x3-oc-nvidia-geforce-16gb-gddr7-g-sync-ray-tracing-dlss-4-hdr-n50803-16d7x-17603930",
+      "preco": 12999.99,
+      "parcelado": 14772.72,
+      "disponivel": true,
+      "menor_preco": 12999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:697896": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5080 AERO OC, NVIDIA, 16GB, GDDR7, BIOS DUAL, IA com FP4, DLSS 4 - GV-N5080AERO OC",
+      "url": "https://www.kabum.com.br/produto/697896/placa-de-video-gigabyte-rtx-5080-aero-oc-nvidia-16gb-gddr7-bios-dual-ia-com-fp4-dlss-4-gv-n5080aero-oc-16gd-g10",
+      "preco": 16999.99,
+      "parcelado": 19999.99,
+      "disponivel": true,
+      "menor_preco": 16999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 16999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:716196": {
+      "loja": "Kabum (vendido por LOGIN INFORMATICA)",
+      "nome": "Placa De Vídeo RTX 5080 Ventus 3x Oc 16gb Gddr7 256bits Msi - 912-v531-262",
+      "url": "https://www.kabum.com.br/produto/716196/placa-de-video-rtx-5080-ventus-3x-oc-16gb-gddr7-256bits-msi-912-v531-262",
+      "preco": 12153.26,
+      "parcelado": 12929.0,
+      "disponivel": true,
+      "menor_preco": 12153.26,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12153.26
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:727607": {
+      "loja": "Kabum (vendido por TNTINFO)",
+      "nome": "Placa De Vídeo Gigabyte Nvidia Geforce RTX 5080 Gaming Oc 16gb Gddr7 256bit",
+      "url": "https://www.kabum.com.br/produto/727607/placa-de-video-gigabyte-geforce-rtx-5080-gaming-oc-16gb-gddr7-256-bits",
+      "preco": 13098.24,
+      "parcelado": 13098.24,
+      "disponivel": true,
+      "menor_preco": 13098.24,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 13098.24
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1060591": {
+      "loja": "Kabum (vendido por TERABYTE)",
+      "nome": "Placa De Vídeo Gainward Nvidia Geforce RTX 5080 Python Iii, 16gb, Gddr7, Dlss, Ray Tracing, Ne75080019t2-gb203",
+      "url": "https://www.kabum.com.br/produto/1060591/placa-de-video-gainward-nvidia-geforce-rtx-5080-python-iii-16gb-gddr7-dlss-ray-tracing-ne75080019t2-gb2035t",
+      "preco": 16094.99,
+      "parcelado": 16094.99,
+      "disponivel": true,
+      "menor_preco": 16094.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 16094.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1035561": {
+      "loja": "Kabum (vendido por POWER GAME LTDA)",
+      "nome": "Placa De Vídeo Geforce Ddr7 16gb/256 Bits RTX 5080 Palit Gaming, 3 Fans, Dp, HDMI, Ne75080019t2-gb2031y, Preta",
+      "url": "https://www.kabum.com.br/produto/1035561/placa-de-video-geforce-ddr7-16gb-256-bits-rtx-5080-palit-gaming-3-fans-dp-hdmi-ne75080019t2-gb2031y-preta-gar-fab",
+      "preco": 14099.0,
+      "parcelado": 14099.0,
+      "disponivel": true,
+      "menor_preco": 14099.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14099.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:697894": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gigabyte RTX 5080 GAMING OC, NVIDIA, 16GB, GDDR7, BIOS DUAL, IA com FP4, DLSS 4  - GV-N5080GAMI",
+      "url": "https://www.kabum.com.br/produto/697894/placa-de-video-gigabyte-rtx-5080-gaming-oc-nvidia-16gb-gddr7-bios-dual-ia-com-fp4-dlss-4-gv-n5080gaming-oc-16gd-g10",
+      "preco": 15999.99,
+      "parcelado": 18823.52,
+      "disponivel": true,
+      "menor_preco": 15999.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 15999.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:885283": {
+      "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
+      "nome": "Placa De Video Zotac RTX 5080 Solid Core Oc 16gb Gddr7 256bits - Zt-b50800j2-10p",
+      "url": "https://www.kabum.com.br/produto/885283/placa-de-video-geforce-zotac-rtx-5080-core-oc-16gb-solid-core-oc-16gb-gddr7-256-bits-zt-b50800j2-10p",
+      "preco": 12799.0,
+      "parcelado": 13472.63,
+      "disponivel": true,
+      "menor_preco": 12799.0,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 12799.0
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:727169": {
+      "loja": "Kabum (vendido por Bits & Bytes)",
+      "nome": "Placa De Vídeo Gigabyte Nvidia Geforce RTX 5080 Aero Oc 16gb Gddr7 256bits",
+      "url": "https://www.kabum.com.br/produto/727169/placa-de-video-gigabyte-geforce-rtx-5080-aero-oc-16gb-gddr7-256-bit",
+      "preco": 23966.36,
+      "parcelado": 23966.36,
+      "disponivel": true,
+      "menor_preco": 23966.36,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 23966.36
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1009158": {
+      "loja": "Kabum (vendido por Oficina dos Bits)",
+      "nome": "Placa De Vídeo Geforce RTX 5080 16gb Gddr7 256bits - Dlss 4 - Windforce Sff - Gigabyte",
+      "url": "https://www.kabum.com.br/produto/1009158/placa-de-video-geforce-rtx-5080-16gb-gddr7-256bits-dlss-4-windforce-sff-gigabyte",
+      "preco": 21779.99,
+      "parcelado": 21779.99,
+      "disponivel": true,
+      "menor_preco": 21779.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 21779.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1087176": {
+      "loja": "Kabum (vendido por TERABYTE)",
+      "nome": "Placa De Vídeo Colorful Igame Nvidia Geforce RTX 5080 Ultra Oc, 16gb, Gddr7, Dlss, Ray Tracing",
+      "url": "https://www.kabum.com.br/produto/1087176/placa-de-video-colorful-igame-geforce-rtx-5080-ultra-oc-16gb-gddr7-256-bits-212600000103",
+      "preco": 14369.99,
+      "parcelado": 14369.99,
+      "disponivel": true,
+      "menor_preco": 14369.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 14369.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1075471": {
+      "loja": "Kabum (vendido por TNTINFO)",
+      "nome": "Placa De Vídeo Palit Nvidia Geforce RTX 5080 Infinity 3, 16gb, Gddr7, Dlss, Ray Tracing, Ne75080019t2-gb2035s",
+      "url": "https://www.kabum.com.br/produto/1075471/placa-de-video-palit-nvidia-geforce-rtx-5080-infinity-3-16gb-gddr7-dlss-ray-tracing-ne75080019t2-gb2035s",
+      "preco": 11441.9,
+      "parcelado": 12713.22,
+      "disponivel": true,
+      "menor_preco": 11441.9,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 11441.9
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1091977": {
+      "loja": "Kabum (vendido por VIXE E-COMMERCE)",
+      "nome": "Placa De Vídeo Msi Geforce RTX 5080 Shadow 3x Oc 16gb Gddr7",
+      "url": "https://www.kabum.com.br/produto/1091977/placa-de-video-msi-geforce-rtx-5080-shadow-3x-oc-16gb-gddr7",
+      "preco": 25611.3,
+      "parcelado": 25611.3,
+      "disponivel": true,
+      "menor_preco": 25611.3,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 25611.3
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    },
+    "kabum:1078255": {
+      "loja": "Kabum",
+      "nome": "Placa de Vídeo Gainward GeForce RTX 5080 Python III NVIDIA GeForce, 16GB, GDDR7, 256-bits, DLSS 4 - NE75080019",
+      "url": "https://www.kabum.com.br/produto/1078255/placa-de-video-nvidia-gainward-rtx-5080-16gb-python-iii-gddr7-256bits-gainward-ne75080019t2-gb2035t",
+      "preco": 13329.99,
+      "parcelado": 14811.1,
+      "disponivel": true,
+      "menor_preco": 13329.99,
+      "historico": [
+        {
+          "data": "2026-11-15 20:31",
+          "preco": 13329.99
+        }
+      ],
+      "visto_em": "2026-11-15 20:31"
+    }
+  }
 }
