@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "nome": "",
+    "url": "https://www.amazon.com.br/gp/product/B0DTGPPVVT/ref=ox_sc_act_title_6?smid=A1ZZFT5FULY4LN&psc=1",
+    "seletor": null,
+    "preco": null,
+    "menor_preco": null,
+    "historico": []
+  }
+]

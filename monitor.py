@@ -302,7 +302,9 @@ def checar_todos() -> None:
         return
     for p in produtos:
         try:
-            novo, _ = buscar(p["url"], p.get("seletor"))
+            novo, titulo = buscar(p["url"], p.get("seletor"))
+            if not p.get("nome"):
+                p["nome"] = titulo[:80]
         except requests.RequestException as e:
             print(f"[{p['id']}] erro ao acessar: {e}")
             continue
