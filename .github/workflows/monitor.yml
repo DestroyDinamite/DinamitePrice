@@ -8,10 +8,10 @@ on:
       acao:
         description: "O que fazer"
         type: choice
-        options: [check, add, remove, test-notify]
+        options: [check, add, remove, test-notify, debug]
         default: check
       link:
-        description: "Link do produto (para 'add')"
+        description: "Link do produto (para 'add'; vários separados por espaço para 'debug')"
         required: false
       id:
         description: "Id do produto (para 'remove')"
@@ -58,6 +58,7 @@ jobs:
           case "$ACAO" in
             add)    if [ -n "$SELETOR" ]; then python monitor.py add "$LINK" --seletor "$SELETOR"; else python monitor.py add "$LINK"; fi ;;
             remove) python monitor.py remove "$PID" ;;
+            debug)  python monitor.py debug $LINK ;;
             *)      python monitor.py "$ACAO" ;;
           esac
 

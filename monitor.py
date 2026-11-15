@@ -345,6 +345,59 @@ def cmd_run(args) -> None:
         time.sleep(args.minutos * 60)
 
 
+def _walk(obj, achados, profundidade=0):
+    """Procura, em JSON aninhado, objetos que pareçam produtos (nome + preço)."""
+    if profundidade > 40:
+        return
+    if isinstance(obj, str) and obj[:1] in "[{" and len(obj) > 50:
+        try:
+            _walk(json.loads(obj), achados, profundidade + 1)
+        except ValueError:
+            pass
+    elif isinstance(obj, list):
+        for o in obj:
+            _walk(o, achados, profundidade + 1)
+    elif isinstance(obj, dict):
+        chaves = {k.lower() for k in obj}
+        if any("name" in k or "nome" in k or "title" in k for k in chaves) and any("price" in k or "preco" in k for k in chaves):
+            achados.append(obj)
+        for v in obj.values():
+            _walk(v, achados, profundidade + 1)
+
+
+def cmd_debug(args) -> None:
+    for url in args.urls:
+        print("=" * 70)
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=30)
+        except Exception as e:
+            print(f"{url}\n  ERRO: {e}")
+            continue
+        html = resp.text
+        soup = BeautifulSoup(html, "html.parser")
+        print(f"{url}\n  HTTP {resp.status_code} · {len(html)} bytes · título: {_titulo(soup)[:90]}")
+        print(f"  preço (página de produto): {brl(extrair_preco(html)[0])}")
+        print(f"  links /produto/: {len(soup.select('a[href*=\"/produto/\"]'))}"
+              f" · JSON-LD: {len(soup.find_all('script', type='application/ld+json'))}")
+        achados = []
+        for tag in soup.find_all("script"):
+            txt = (tag.string or "").strip()
+            if tag.get("type") in ("application/json", "application/ld+json") or tag.get("id") == "__NEXT_DATA__":
+                try:
+                    _walk(json.loads(txt), achados)
+                except ValueError:
+                    pass
+        print(f"  objetos tipo produto em JSON: {len(achados)}")
+        for o in achados[:3]:
+            resumo = {k: (str(v)[:70]) for k, v in o.items() if not isinstance(v, (dict, list))}
+            print("   ", json.dumps(resumo, ensure_ascii=False)[:600])
+        if not achados:
+            for sel in ("[class*=productCard]", "[class*=product-item]", "[class*=pbox]", "[class*=price]"):
+                el = soup.select(sel)
+                if el:
+                    print(f"  {sel}: {len(el)} → {el[0].get_text(' ', strip=True)[:150]}")
+
+
 def cmd_test_notify(_args) -> None:
     notificar("Teste do Monitor de Preços", "Se você recebeu isso, está funcionando! ✅")
 
@@ -372,6 +425,10 @@ def main() -> None:
     rn.set_defaults(func=cmd_run)
 
     sub.add_parser("test-notify", help="testar notificações").set_defaults(func=cmd_test_notify)
+
+    d = sub.add_parser("debug", help="mostrar o que o app enxerga nas páginas")
+    d.add_argument("urls", nargs="+")
+    d.set_defaults(func=cmd_debug)
 
     args = ap.parse_args()
     args.func(args)
