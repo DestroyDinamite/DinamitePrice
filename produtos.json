@@ -7,5 +7,32 @@
     "preco": null,
     "menor_preco": null,
     "historico": []
+  },
+  {
+    "id": 2,
+    "nome": "",
+    "url": "https://www.kabum.com.br/produto/714565/placa-de-video-gigabyte-rtx-5070-ti-gaming-oc-16g-nvidia-geforce-16gb-gddr7-256bits-rgb-dlss-ray-tracing-9vn507tgo-00-g10",
+    "seletor": null,
+    "preco": null,
+    "menor_preco": null,
+    "historico": []
+  },
+  {
+    "id": 3,
+    "nome": "",
+    "url": "https://www.pichau.com.br/placa-de-video-gigabyte-geforce-rtx-5070-ti-gaming-oc-16gb-gddr7-256-bit-gv-n507tgaming-oc-16gd",
+    "seletor": null,
+    "preco": null,
+    "menor_preco": null,
+    "historico": []
+  },
+  {
+    "id": 4,
+    "nome": "",
+    "url": "https://www.magazineluiza.com.br/geforce-rtx-5070-ti-gaming-oc-16gb-256bits-gddr7-gv-n507tgaming-oc-16gd-gigabyte/p/hk2113b7df/in/pcvd/",
+    "seletor": null,
+    "preco": null,
+    "menor_preco": null,
+    "historico": []
   }
 ]
