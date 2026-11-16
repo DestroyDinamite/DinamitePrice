@@ -129,17 +129,21 @@
       "loja": "Kabum",
       "nome": "Placa de Vídeo Gigabyte RTX 5070 Ti WINDFORCE OC SFF 16G NVIDIA GeForce, 16GB GDDR7, 256bits, DLSS, Ray Tracin",
       "url": "https://www.kabum.com.br/produto/714568/placa-de-video-gigabyte-rtx-5070-ti-windforce-oc-sff-16g-nvidia-geforce-16gb-gddr7-256bits-dlss-ray-tracing-9vn507two-00-g10",
-      "preco": 10999.99,
-      "parcelado": 12222.21,
+      "preco": 15999.99,
+      "parcelado": 17777.77,
       "disponivel": true,
       "menor_preco": 10999.99,
       "historico": [
         {
           "data": "2026-11-15 20:31",
           "preco": 10999.99
+        },
+        {
+          "data": "2026-11-16 13:20",
+          "preco": 15999.99
         }
       ],
-      "visto_em": "2026-11-16 13:00"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:954798": {
       "loja": "Kabum (vendido por VIXE E-COMMERCE)",
@@ -155,7 +159,7 @@
           "preco": 18339.75
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:857022": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -171,7 +175,7 @@
           "preco": 11844.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:714565": {
       "loja": "Kabum",
@@ -191,7 +195,7 @@
           "preco": 9899.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:882086": {
       "loja": "Kabum (vendido por VIXE E-COMMERCE)",
@@ -211,7 +215,7 @@
           "preco": 18146.7
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:726011": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -227,7 +231,7 @@
           "preco": 8949.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1069580": {
       "loja": "Kabum (vendido por Victory)",
@@ -243,7 +247,7 @@
           "preco": 14399.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:714564": {
       "loja": "Kabum",
@@ -259,7 +263,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:714566": {
       "loja": "Kabum",
@@ -275,7 +279,7 @@
           "preco": 14999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:714563": {
       "loja": "Kabum",
@@ -291,7 +295,7 @@
           "preco": 13999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:714567": {
       "loja": "Kabum",
@@ -307,7 +311,7 @@
           "preco": 13999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:753245": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -327,7 +331,7 @@
           "preco": 17055.14
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:885284": {
       "loja": "Kabum (vendido por Victory)",
@@ -343,7 +347,7 @@
           "preco": 9899.91
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:753243": {
       "loja": "Kabum (vendido por STI COMPUTADORES)",
@@ -359,7 +363,7 @@
           "preco": 14399.98
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:753244": {
       "loja": "Kabum (vendido por Victory)",
@@ -375,7 +379,7 @@
           "preco": 17999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1070462": {
       "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
@@ -391,7 +395,7 @@
           "preco": 12590.79
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:697891": {
       "loja": "Kabum",
@@ -407,7 +411,7 @@
           "preco": 11999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:776956": {
       "loja": "Kabum (vendido por EFACINI)",
@@ -423,7 +427,7 @@
           "preco": 12559.9
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:776391": {
       "loja": "Kabum (vendido por Cia PC)",
@@ -439,7 +443,7 @@
           "preco": 18675.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:954578": {
       "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
@@ -455,7 +459,7 @@
           "preco": 17818.07
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:726691": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -471,7 +475,7 @@
           "preco": 14799.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1086061": {
       "loja": "Kabum",
@@ -487,7 +491,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1070621": {
       "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
@@ -503,7 +507,7 @@
           "preco": 12799.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:697890": {
       "loja": "Kabum",
@@ -519,7 +523,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:697896": {
       "loja": "Kabum",
@@ -535,7 +539,7 @@
           "preco": 16999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:716196": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -551,7 +555,7 @@
           "preco": 12153.26
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:727607": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -575,7 +579,7 @@
           "preco": 21402.52
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1060591": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -591,7 +595,7 @@
           "preco": 16094.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1035561": {
       "loja": "Kabum (vendido por POWER GAME LTDA)",
@@ -607,7 +611,7 @@
           "preco": 14099.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:697894": {
       "loja": "Kabum",
@@ -623,7 +627,7 @@
           "preco": 15999.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:885283": {
       "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
@@ -639,7 +643,7 @@
           "preco": 12799.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:727169": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -659,7 +663,7 @@
           "preco": 21569.72
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1009158": {
       "loja": "Kabum (vendido por Oficina dos Bits)",
@@ -675,7 +679,7 @@
           "preco": 21779.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1087176": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -723,7 +727,7 @@
           "preco": 25611.3
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1078255": {
       "loja": "Kabum",
@@ -739,7 +743,7 @@
           "preco": 13329.99
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLB63331991": {
       "loja": "Setup Ninja (Mercado Livre)",
@@ -755,7 +759,7 @@
           "preco": 15085.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:1064792": {
       "loja": "Kabum (vendido por TNTINFO)",
@@ -771,7 +775,7 @@
           "preco": 12042.9
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-galax-geforce-5070-ti-1-click-oc-2x-16gb-gddr7-256-bits-dlss4-57izn6mddm2x": {
       "loja": "Pato Loco",
@@ -787,7 +791,7 @@
           "preco": 7757.1
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-msi-geforce-rtx-5080-16g-shadow-3x-oc-16gb-gddr7-256-bits-nvidiar-912-v531-435": {
       "loja": "Pato Loco",
@@ -803,7 +807,7 @@
           "preco": 13015.45
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-1-click-oc-16gb-gddr7-256-bit-58nzn6mdbboc": {
       "loja": "Pato Loco",
@@ -823,7 +827,7 @@
           "preco": null
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-zotac-gaming-nvidia-geforce-rtx-5080-solid-core-oc-16gb-gddr7-dlss-ray-tracing-zt-b50800j2-10a": {
       "loja": "Pato Loco",
@@ -834,7 +838,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-58nzn6mdcxho": {
       "loja": "Pato Loco",
@@ -845,7 +849,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-asus-geforce-rtx-5070-ti-prime-oc-edition-16gb-gddr7-256-bit-90yv0mf0-m0na00": {
       "loja": "Pato Loco",
@@ -856,7 +860,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-msi-nvidia-geforce-rtx-5070-ti-inspire-3x-oc-16gb-gddr7-dlss-ray-tracing-912-v531-273": {
       "loja": "Pato Loco",
@@ -867,7 +871,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-msi-nvidia-geforce-rtx-5070-ti-shadow-3x-oc-16gb-gddr7-dlss-ray-tracing-912-v531-465": {
       "loja": "Pato Loco",
@@ -878,7 +882,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-527200-0770w": {
       "loja": "Pato Loco",
@@ -889,7 +893,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5070-ti-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-57izn6mdcxhs": {
       "loja": "Pato Loco",
@@ -900,7 +904,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-inno3d-nvidia-geforce-rtx-5080-x3-16gb-gddr7-dlss-ray-tracing-n50803-16d7-176068n": {
       "loja": "Pato Loco",
@@ -911,7 +915,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "patoloco:placa-de-video-gainward-geforce-rtx-5070-ti-phoenix-s-16gb-gddr7-256-bit-ne7507t019t2-gb2031k": {
       "loja": "Pato Loco",
@@ -922,7 +926,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "vtex:www.americanas.com.br:7047196": {
       "loja": "Americanas",
@@ -933,7 +937,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "vtex:www.americanas.com.br:8103488": {
       "loja": "Americanas",
@@ -944,7 +948,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "vtex:www.americanas.com.br:7001449": {
       "loja": "Americanas",
@@ -955,7 +959,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLB2096145969": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -971,7 +975,7 @@
           "preco": 22199.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLB2117806317": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -987,7 +991,7 @@
           "preco": 16489.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLBU5508273883": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -1003,7 +1007,7 @@
           "preco": 14699.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLB46134523": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -1019,7 +1023,7 @@
           "preco": 13883.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLBU5553765340": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -1035,7 +1039,7 @@
           "preco": 13883.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "ml:MLB58633715": {
       "loja": "NVIDIA oficial (Mercado Livre)",
@@ -1051,7 +1055,7 @@
           "preco": 10283.0
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150221": {
       "loja": "TNT Info",
@@ -1062,7 +1066,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150201": {
       "loja": "TNT Info",
@@ -1073,7 +1077,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150193": {
       "loja": "TNT Info",
@@ -1084,7 +1088,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150868": {
       "loja": "TNT Info",
@@ -1095,7 +1099,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150162": {
       "loja": "TNT Info",
@@ -1106,7 +1110,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150822": {
       "loja": "TNT Info",
@@ -1122,7 +1126,7 @@
           "preco": 8754.92
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:16722194915": {
       "loja": "TNT Info",
@@ -1138,7 +1142,7 @@
           "preco": 8585.87
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150187": {
       "loja": "TNT Info",
@@ -1149,7 +1153,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150869": {
       "loja": "TNT Info",
@@ -1160,7 +1164,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150222": {
       "loja": "TNT Info",
@@ -1171,7 +1175,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150202": {
       "loja": "TNT Info",
@@ -1182,7 +1186,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:16732044012": {
       "loja": "TNT Info",
@@ -1198,7 +1202,7 @@
           "preco": 11586.85
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:16684148574": {
       "loja": "TNT Info",
@@ -1214,7 +1218,7 @@
           "preco": 11325.98
         }
       ],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150872": {
       "loja": "TNT Info",
@@ -1225,7 +1229,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150212": {
       "loja": "TNT Info",
@@ -1236,7 +1240,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150870": {
       "loja": "TNT Info",
@@ -1247,7 +1251,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150161": {
       "loja": "TNT Info",
@@ -1258,7 +1262,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150213": {
       "loja": "TNT Info",
@@ -1269,7 +1273,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150211": {
       "loja": "TNT Info",
@@ -1280,7 +1284,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150220": {
       "loja": "TNT Info",
@@ -1291,7 +1295,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "tnt:150188": {
       "loja": "TNT Info",
@@ -1302,7 +1306,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 13:15"
+      "visto_em": "2026-11-16 13:20"
     },
     "kabum:727082": {
       "loja": "Kabum (vendido por PATOLOCO)",
