@@ -104,14 +104,14 @@
       "tipo": "tnt",
       "termo": "rtx 5070 ti",
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b",
-      "inicializada": false
+      "inicializada": true
     },
     {
       "rotulo": "TNT Info · RTX 5080",
       "tipo": "tnt",
       "termo": "rtx 5080",
       "filtro": "(?<!\\d)5080(?!\\d)",
-      "inicializada": false
+      "inicializada": true
     },
     {
       "rotulo": "TNT Info (Mercado Livre)",
@@ -139,7 +139,7 @@
           "preco": 10999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:954798": {
       "loja": "Kabum (vendido por VIXE E-COMMERCE)",
@@ -155,7 +155,7 @@
           "preco": 18339.75
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:857022": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -171,7 +171,7 @@
           "preco": 11844.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:714565": {
       "loja": "Kabum",
@@ -187,7 +187,7 @@
           "preco": 15999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:882086": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -203,7 +203,7 @@
           "preco": 10345.49
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:726011": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -219,7 +219,7 @@
           "preco": 8949.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1069580": {
       "loja": "Kabum (vendido por Victory)",
@@ -235,7 +235,7 @@
           "preco": 14399.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:714564": {
       "loja": "Kabum",
@@ -251,7 +251,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:714566": {
       "loja": "Kabum",
@@ -267,7 +267,7 @@
           "preco": 14999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:714563": {
       "loja": "Kabum",
@@ -283,7 +283,7 @@
           "preco": 13999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:714567": {
       "loja": "Kabum",
@@ -299,7 +299,7 @@
           "preco": 13999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:753245": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -319,7 +319,7 @@
           "preco": 17055.14
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:885284": {
       "loja": "Kabum (vendido por Victory)",
@@ -335,7 +335,7 @@
           "preco": 9899.91
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:753243": {
       "loja": "Kabum (vendido por STI COMPUTADORES)",
@@ -351,7 +351,7 @@
           "preco": 14399.98
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:753244": {
       "loja": "Kabum (vendido por Victory)",
@@ -367,7 +367,7 @@
           "preco": 17999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1070462": {
       "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
@@ -383,7 +383,7 @@
           "preco": 12590.79
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:697891": {
       "loja": "Kabum",
@@ -399,7 +399,7 @@
           "preco": 11999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:776956": {
       "loja": "Kabum (vendido por EFACINI)",
@@ -415,7 +415,7 @@
           "preco": 12559.9
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:776391": {
       "loja": "Kabum (vendido por Cia PC)",
@@ -431,7 +431,7 @@
           "preco": 18675.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:954578": {
       "loja": "Kabum (vendido por ALLIGATOR SHOP  COMERCIO)",
@@ -447,7 +447,7 @@
           "preco": 17818.07
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:726691": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -463,7 +463,7 @@
           "preco": 14799.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1086061": {
       "loja": "Kabum",
@@ -479,7 +479,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1070621": {
       "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
@@ -495,7 +495,7 @@
           "preco": 12799.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:697890": {
       "loja": "Kabum",
@@ -511,7 +511,7 @@
           "preco": 12999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:697896": {
       "loja": "Kabum",
@@ -527,7 +527,7 @@
           "preco": 16999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:716196": {
       "loja": "Kabum (vendido por LOGIN INFORMATICA)",
@@ -543,7 +543,7 @@
           "preco": 12153.26
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:727607": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -567,7 +567,7 @@
           "preco": 21402.52
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1060591": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -583,7 +583,7 @@
           "preco": 16094.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1035561": {
       "loja": "Kabum (vendido por POWER GAME LTDA)",
@@ -599,7 +599,7 @@
           "preco": 14099.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:697894": {
       "loja": "Kabum",
@@ -615,7 +615,7 @@
           "preco": 15999.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:885283": {
       "loja": "Kabum (vendido por EASYTECH TECNOLOGIA COMERCIO E SERVICOS LTDA)",
@@ -631,7 +631,7 @@
           "preco": 12799.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:727169": {
       "loja": "Kabum (vendido por Bits & Bytes)",
@@ -651,7 +651,7 @@
           "preco": 21569.72
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1009158": {
       "loja": "Kabum (vendido por Oficina dos Bits)",
@@ -667,7 +667,7 @@
           "preco": 21779.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1087176": {
       "loja": "Kabum (vendido por TERABYTE)",
@@ -699,7 +699,7 @@
           "preco": 11441.9
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1091977": {
       "loja": "Kabum (vendido por VIXE E-COMMERCE)",
@@ -715,7 +715,7 @@
           "preco": 25611.3
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1078255": {
       "loja": "Kabum",
@@ -731,7 +731,7 @@
           "preco": 13329.99
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLB63331991": {
       "loja": "Setup Ninja (Mercado Livre)",
@@ -747,7 +747,7 @@
           "preco": 15085.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "kabum:1064792": {
       "loja": "Kabum (vendido por TNTINFO)",
@@ -763,7 +763,7 @@
           "preco": 12042.9
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-galax-geforce-5070-ti-1-click-oc-2x-16gb-gddr7-256-bits-dlss4-57izn6mddm2x": {
       "loja": "Pato Loco",
@@ -779,7 +779,7 @@
           "preco": 7757.1
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-msi-geforce-rtx-5080-16g-shadow-3x-oc-16gb-gddr7-256-bits-nvidiar-912-v531-435": {
       "loja": "Pato Loco",
@@ -795,7 +795,7 @@
           "preco": 13015.45
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-1-click-oc-16gb-gddr7-256-bit-58nzn6mdbboc": {
       "loja": "Pato Loco",
@@ -806,7 +806,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-zotac-gaming-nvidia-geforce-rtx-5080-solid-core-oc-16gb-gddr7-dlss-ray-tracing-zt-b50800j2-10a": {
       "loja": "Pato Loco",
@@ -817,7 +817,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-58nzn6mdcxho": {
       "loja": "Pato Loco",
@@ -828,7 +828,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-asus-geforce-rtx-5070-ti-prime-oc-edition-16gb-gddr7-256-bit-90yv0mf0-m0na00": {
       "loja": "Pato Loco",
@@ -839,7 +839,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-msi-nvidia-geforce-rtx-5070-ti-inspire-3x-oc-16gb-gddr7-dlss-ray-tracing-912-v531-273": {
       "loja": "Pato Loco",
@@ -850,7 +850,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-msi-nvidia-geforce-rtx-5070-ti-shadow-3x-oc-16gb-gddr7-dlss-ray-tracing-912-v531-465": {
       "loja": "Pato Loco",
@@ -861,7 +861,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5080-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-527200-0770w": {
       "loja": "Pato Loco",
@@ -872,7 +872,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-galax-geforce-rtx-5070-ti-hof-gaming-nvidia-geforce-16gb-gddr7-256-bits-triple-fan-directx-dlss-4-57izn6mdcxhs": {
       "loja": "Pato Loco",
@@ -883,7 +883,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-inno3d-nvidia-geforce-rtx-5080-x3-16gb-gddr7-dlss-ray-tracing-n50803-16d7-176068n": {
       "loja": "Pato Loco",
@@ -894,7 +894,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "patoloco:placa-de-video-gainward-geforce-rtx-5070-ti-phoenix-s-16gb-gddr7-256-bit-ne7507t019t2-gb2031k": {
       "loja": "Pato Loco",
@@ -905,7 +905,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "vtex:www.americanas.com.br:7047196": {
       "loja": "Americanas",
@@ -916,7 +916,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "vtex:www.americanas.com.br:8103488": {
       "loja": "Americanas",
@@ -927,7 +927,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "vtex:www.americanas.com.br:7001449": {
       "loja": "Americanas",
@@ -938,7 +938,7 @@
       "disponivel": false,
       "menor_preco": null,
       "historico": [],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLB2096145969": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -954,7 +954,7 @@
           "preco": 22199.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLB2117806317": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -970,7 +970,7 @@
           "preco": 16489.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLBU5508273883": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -986,7 +986,7 @@
           "preco": 14699.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLB46134523": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -1002,7 +1002,7 @@
           "preco": 13883.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLBU5553765340": {
       "loja": "Gigabyte oficial (Mercado Livre)",
@@ -1018,7 +1018,7 @@
           "preco": 13883.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
     },
     "ml:MLB58633715": {
       "loja": "NVIDIA oficial (Mercado Livre)",
@@ -1034,7 +1034,258 @@
           "preco": 10283.0
         }
       ],
-      "visto_em": "2026-11-16 09:40"
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150221": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce Gainward RTX5070TI 16GB PHOENIX GS GDDR7 256BITS NE7507TS19T2-GB2031X",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gainward-rtx5070ti-16gb-phoenix-gs-gddr7-256bits-ne7507ts19t2-gb2031x-150221",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150201": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce Gigabyte AORUS RTX5070Ti Master 16GB GDDR7 256 bits - GV-N507TAORUS M-16GD",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-aorus-rtx5070ti-master-16gb-gddr7-256-bits-gv-n507taorus-m-16gd-150201",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150193": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce GIGABYTE RTX5070Ti Aero OC 16GB GDDR7 256 bits GV-N507TAERO OC-16GD",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-rtx5070ti-aero-oc-16gb-gddr7-256-bits-gv-n507taero-oc-16gd-150193",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150868": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo MSI NVIDIA GeForce RTX 5070 Ti Gaming trio OC,16GB GDDR7 912-V531-272",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-msi-nvidia-geforce-rtx-5070-ti-gaming-trio-oc-16gb-gddr7-912-v531-272-150868",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150162": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce MSI RTX5070TI 16G Blackwell Expert OC GDDR7 DLSS4 912-V531",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-msi-rtx5070ti-16g-blackwell-expert-oc-gddr7-dlss4-912-v531-150162",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150822": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo Palit NVIDIA GeForce RTX 5070 Ti Gamingpro GDR7, 16GB, 256 bits",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-palit-nvidia-geforce-rtx-5070-ti-gamingpro-gdr7-16gb-256-bits-150822",
+      "preco": 8754.92,
+      "parcelado": 9727.68,
+      "disponivel": true,
+      "menor_preco": 8754.92,
+      "historico": [
+        {
+          "data": "2026-11-16 09:45",
+          "preco": 8754.92
+        }
+      ],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:16722194915": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo Gigabyte NVIDIA GeForce RTX 5070 Ti WindForce OC SFF, 16GB GDDR7 - 256Bits GV-N507TWF3OC-16GD",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-gigabyte-nvidia-geforce-rtx-5070-ti-windforce-oc-sff-16gb-gddr7-256bits-gv-n507twf3oc-16gd-16722194915",
+      "preco": 8585.87,
+      "parcelado": 9539.880000000001,
+      "disponivel": true,
+      "menor_preco": 8585.87,
+      "historico": [
+        {
+          "data": "2026-11-16 09:45",
+          "preco": 8585.87
+        }
+      ],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150187": {
+      "loja": "TNT Info",
+      "nome": "Placa De Video Galax Geforce RTX 5070Ti Ex Gamer 1-click Oc, 16gb, Gddr7, 256-bit - 57IZN6MDBUEX",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-galax-geforce-rtx-5070ti-ex-gamer-1-click-oc-16gb-gddr7-256-bit-57izn6mdbuex-150187",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150869": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo MSI NVIDIA GeForce RTX 5070 Ti Shadow 3X OC, 16GB GDDR7, 256 bits - 912-V531-097",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-msi-nvidia-geforce-rtx-5070-ti-shadow-3x-oc-16gb-gddr7-256-bits-912-v531-097-150869",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150222": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce Gainward RTX5070TI 16GB PHOENIX  GDDR7 256BITS NE7507T019T2-GB2031X",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gainward-rtx5070ti-16gb-phoenix-gddr7-256bits-ne7507t019t2-gb2031x-150222",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150202": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce GIGABYTE RTX5070TI Windforce SFF 16GB GDDR7 256Bits - GV-N507TWF3-16GD",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-rtx5070ti-windforce-sff-16gb-gddr7-256bits-gv-n507twf3-16gd-150202",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:16732044012": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo Palit NVIDIA GeForce RTX 5080 GamingPro OC V1, 16GB GDDR7, 256 bits - NE75080S19T2-GB2031Y",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-palit-nvidia-geforce-rtx-5080-gamingpro-oc-v1-16gb-gddr7-256-bits-ne75080s19t2-gb2031y-16732044012",
+      "preco": 11586.85,
+      "parcelado": 12874.32,
+      "disponivel": true,
+      "menor_preco": 11586.85,
+      "historico": [
+        {
+          "data": "2026-11-16 09:45",
+          "preco": 11586.85
+        }
+      ],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:16684148574": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo Palit NVIDIA GeForce RTX 5080 Infinity OC 3X, 16GB, 256 bits - NE75080U19T2-GB2035S",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-palit-nvidia-geforce-rtx-5080-infinity-oc-3x-16gb-256-bits-ne75080u19t2-gb2035s-16684148574",
+      "preco": 11325.98,
+      "parcelado": 12584.400000000001,
+      "disponivel": true,
+      "menor_preco": 11325.98,
+      "historico": [
+        {
+          "data": "2026-11-16 09:45",
+          "preco": 11325.98
+        }
+      ],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150872": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo INNO3D NVIDIA GeForce RTX 5080 X3 OC 16GB GDDR7 N50803-16D7X-17603930",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-inno3d-nvidia-geforce-rtx-5080-x3-oc-16gb-gddr7-n50803-16d7x-17603930-150872",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150212": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce GIGABYTE  RTX 5080 GV-N5080WF3OC-16GD 1.0 GIG",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-rtx-5080-windforce-oc-sff-16gb-gddr7-gv-n5080wf3oc-16gd-150212",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150870": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo MSI NVIDIA GeForce RTX 5080 GAMING TRIO OC 3X 16GB - 256 BITS - HDMI/3X DP - 912-V531",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-msi-nvidia-geforce-rtx-5080-gaming-trio-oc-3x-16gb-256-bits-hdmi-3x-dp-912-v531-150870",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150161": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce MSI RTX5080 16G Inspire 3X OC GDDR7 912-V531",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-msi-rtx5080-16g-inspire-3x-oc-gddr7-912-v531-150161",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150213": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce GIGABYTE RTX 5080 GV-N5080AERO OC-16GD 1.0 G",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-rtx-5080-aero-oc-sff-16gb-gddr7-gv-n5080aero-oc-16gd-150213",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150211": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce Gigabyte RTX5080 Gaming OC 16GB GDDR7 256bit GV-N5080GAMING OC-16GD 1.0",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-gigabyte-rtx5080-gaming-oc-16gb-gddr7-256bit-gv-n5080gaming-oc-16gd-1-0-150211",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150220": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce RTX5080 16GB Gainward  PHOENIX GDDR7 256BITS NE75080019T2-GB2031X",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-rtx5080-16gb-gainward-phoenix-gddr7-256bits-ne75080019t2-gb2031x-150220",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
+    },
+    "tnt:150188": {
+      "loja": "TNT Info",
+      "nome": "Placa de Vídeo NVIDIA GeForce  Galax  RTX 5080 1-Click OC 16 GB GDDR7 256 bits DP2.1b*3/HDMI 2.1b/DLSS 4 - 58N",
+      "url": "https://www.tntinfo.com.br/produto/placa-de-video-nvidia-geforce-galax-rtx-5080-1-click-oc-16-gb-gddr7-256-bits-dp2-1b-3-hdmi-2-1b-dlss-4-58nzn6mdbboc-150188",
+      "preco": null,
+      "parcelado": null,
+      "disponivel": false,
+      "menor_preco": null,
+      "historico": [],
+      "visto_em": "2026-11-16 09:45"
     }
   }
 }
