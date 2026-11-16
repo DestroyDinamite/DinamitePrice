@@ -98,6 +98,8 @@ e os padrões de lojas conhecidas (Amazon, Mercado Livre etc.). Se uma loja não
 3. Use o seletor no campo `seletor` ao adicionar o produto.
 
 ## Observações
-- O GitHub pode atrasar execuções agendadas alguns minutos em horários de pico. Na prática, o aviso chega entre 5 e 15 minutos depois da mudança.
+- **Como fica ligado 24h:** o agendamento do GitHub atrasa muito quando os servidores estão cheios (às vezes passa horas sem rodar). Por isso, uma execução **contínua** fica ligada por cerca de 5h45, conferindo a cada 5 minutos. Ao terminar, ela mesma inicia a próxima rodada. Um agendamento a cada 20 minutos funciona como "vigia" e religa o monitoramento se a corrente for interrompida.
+- Na aba **Actions**, é normal ver sempre uma execução "Monitor de Preços" em andamento, com o ícone amarelo girando.
+- O repositório é **público** porque o GitHub só oferece minutos ilimitados de automação para repositórios públicos. O tópico de notificação fica nos *secrets* e continua secreto.
 - O GitHub pausa agendamentos de repositórios **sem nenhum commit por 60 dias**. Se receber o e-mail de aviso, basta clicar para reativar.
 - Algumas lojas bloqueiam acessos automáticos, ou só mostram o preço depois de carregar JavaScript. Nesses casos o produto aparece como "preço não encontrado".
