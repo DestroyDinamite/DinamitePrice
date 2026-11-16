@@ -531,6 +531,66 @@ def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[s
     return itens
 
 
+def _card_do_link(link):
+    """Sobe a partir do link até o menor bloco que contém o preço no PIX de um único produto."""
+    no = link
+    for _ in range(10):
+        no = no.parent
+        if no is None:
+            return None
+        hrefs = {x["href"].split("?")[0] for x in no.select('a[href*="/produto/"]')}
+        if len(hrefs) > 1:
+            return None
+        if re.search(r"no\s*pix|esgotad|indispon|avise-me", no.get_text(" ", strip=True), re.I):
+            return no
+    return None
+
+
+def buscar_tnt(termo: str, filtro: str) -> dict[str, dict]:
+    """Busca no site da TNT Info (tntinfo.com.br/busca?busca=...)."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    vistos: set[str] = set()
+    for pagina in range(1, 8):
+        url = f"https://www.tntinfo.com.br/busca?busca={requests.utils.quote(termo)}"
+        if pagina > 1:
+            url += f"&pagina={pagina}"
+        resp = requests.get(url, headers=HEADERS, timeout=40)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        links = {}
+        for a in soup.select('a[href*="/produto/"]'):
+            links.setdefault(a["href"].split("?")[0], a)
+        novos = set(links) - vistos
+        if not novos:
+            break
+        vistos |= novos
+        for href in novos:
+            a = links[href]
+            card = _card_do_link(a)
+            if card is None:
+                continue
+            img = card.select_one("img[alt]")
+            nome = (a.get("title") or a.get_text(" ", strip=True) or (img["alt"] if img else "")).strip()
+            if len(nome) < 10:
+                nome = card.get_text(" | ", strip=True).split(" | ")[0]
+            if not regex.search(nome) or "placa" not in nome.lower():
+                continue
+            texto = card.get_text(" ", strip=True)
+            antes_pix = re.split(r"no\s*pix", texto, flags=re.I)[0]
+            valores = re.findall(r"R\$\s*([\d.]+,\d{2})", antes_pix)
+            esgotado = bool(re.search(r"esgotad|indispon|avise-me", texto, re.I))
+            preco = parse_preco(valores[-1]) if valores and not esgotado and "pix" in texto.lower() else None
+            parc = re.search(r"(\d+)\s*x\s*de\s*R\$\s*([\d.]+,\d{2})\s*sem juros", texto)
+            link = href if href.startswith("http") else "https://www.tntinfo.com.br" + href
+            itens[f"tnt:{href.rstrip('/').rsplit('-', 1)[-1]}"] = {
+                "loja": "TNT Info", "nome": nome[:110], "url": link, "preco": preco,
+                "parcelado": int(parc.group(1)) * parse_preco(parc.group(2)) if parc and preco else None,
+                "disponivel": preco is not None,
+            }
+    return itens
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -553,6 +613,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "tnt":
+                encontrados = buscar_tnt(b["termo"], b["filtro"])
             elif b["tipo"] == "vtex":
                 encontrados = buscar_vtex(b["dominio"], b["termo"], b["filtro"], b.get("nome_loja", b["dominio"]))
             elif b["tipo"] == "patoloco":

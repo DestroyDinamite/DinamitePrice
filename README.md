@@ -64,6 +64,7 @@ Hoje ele cobre:
 - **Kabum:** todas as RTX 5070 Ti e todas as RTX 5080, inclusive as de vendedores parceiros
 - **Setup Ninja (Mercado Livre):** RTX 5070 Ti e RTX 5080 da vitrine da loja
 - **Pato Loco:** RTX 5070 Ti e RTX 5080 da categoria de placas de vídeo
+- **TNT Info:** site (busca) e vitrine da loja no Mercado Livre
 
 Você recebe aviso quando:
 - 📉📈 o preço à vista (PIX) muda
