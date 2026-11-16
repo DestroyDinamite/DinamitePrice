@@ -676,7 +676,10 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
             }
         cats = Counter(f"{o.get('categorySlug')}/{o.get('subcategorySlug')}" for o in ofertas.values())
         print(f"   Promobit {url}: {len(ofertas)} ofertas {dict(status)}, {casam} de 5070 Ti/5080")
+        datas = sorted(str(o.get("offerPublished", ""))[:16].replace("T", " ") for o in ofertas.values() if o.get("offerPublished"))
         print(f"      categorias: {dict(cats.most_common(8))}")
+        if datas:
+            print(f"      postadas entre {datas[0]} e {datas[-1]}")
     return itens
 
 
