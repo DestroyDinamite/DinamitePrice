@@ -134,6 +134,18 @@
       "tipo": "terabyte",
       "termo": "rtx 5080",
       "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Promobit · RTX 5070 Ti / 5080",
+      "tipo": "promobit",
+      "urls": [
+        "https://www.promobit.com.br/",
+        "https://www.promobit.com.br/promocoes/placa-de-video/s/",
+        "https://www.promobit.com.br/promocoes/recentes/",
+        "https://www.promobit.com.br/promocoes/hardware/c/",
+        "https://www.promobit.com.br/promocoes/informatica/c/"
+      ],
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {

@@ -629,6 +629,54 @@ def buscar_terabyte(termo: str, filtro: str) -> dict[str, dict]:
                             "Terabyte", "terabyte", param_pagina=None)
 
 
+_EXCLUIR_PROMOBIT = re.compile(r"notebook|laptop|pc gamer|computador|desktop|\bkit\b|combo", re.I)
+
+
+def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
+    """Lê ofertas postadas no Promobit (dados da página) e pega as de placas que casam com o filtro."""
+    from collections import Counter
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    for url in urls:
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=40)
+        except Exception as e:
+            print(f"   Promobit {url}: erro {e}")
+            continue
+        if resp.status_code != 200:
+            print(f"   Promobit {url}: HTTP {resp.status_code}")
+            continue
+        soup = BeautifulSoup(resp.text, "html.parser")
+        achados: list[dict] = []
+        for tag in soup.find_all("script"):
+            if tag.get("id") == "__NEXT_DATA__" or tag.get("type") == "application/json":
+                try:
+                    _walk(json.loads(tag.string or ""), achados)
+                except ValueError:
+                    pass
+        ofertas = {str(o["offerId"]): o for o in achados if o.get("offerId") and o.get("offerTitle")}
+        status = Counter(str(o.get("offerStatusName")) for o in ofertas.values())
+        casam = 0
+        for oid, o in ofertas.items():
+            titulo = str(o["offerTitle"])
+            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo):
+                continue
+            casam += 1
+            ativa = str(o.get("offerStatusName", "")).upper() in ("APPROVED", "ACTIVE", "PUBLISHED")
+            loja = str(o.get("storeName") or "loja")
+            cupom = o.get("offerCoupon")
+            itens[f"promobit:{oid}"] = {
+                "loja": f"Promobit → {loja}" + (f" (cupom {cupom})" if cupom and str(cupom) != "None" else ""),
+                "nome": titulo[:110],
+                "url": f"https://www.promobit.com.br/oferta/{o.get('offerSlug', oid)}/",
+                "preco": _num(o.get("offerPrice")) if ativa else None,
+                "parcelado": None,
+                "disponivel": ativa,
+            }
+        print(f"   Promobit {url}: {len(ofertas)} ofertas {dict(status)}, {casam} de 5070 Ti/5080")
+    return itens
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -651,6 +699,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "promobit":
+                encontrados = buscar_promobit(b["urls"], b["filtro"])
             elif b["tipo"] == "terabyte":
                 encontrados = buscar_terabyte(b["termo"], b["filtro"])
             elif b["tipo"] == "tnt":
@@ -682,9 +732,15 @@ def checar_buscas() -> None:
                 item["historico"] = [{"data": agora(), "preco": novo}] if novo else []
                 item["visto_em"] = agora()
                 estado[chave] = item
-                if not primeira_vez:
-                    eventos.append((f"🆕 Novo anúncio: {item['nome'][:60]}",
-                                    f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"]))
+                if primeira_vez:
+                    continue
+                if chave.startswith("promobit:"):
+                    if novo:  # oferta postada no Promobit e ainda ativa
+                        loja = item["loja"].replace("Promobit → ", "")
+                        eventos.append((f"🔥 Promobit: {item['nome'][:60]}", f"{brl(novo)} na {loja}", item["url"]))
+                    continue
+                eventos.append((f"🆕 Novo anúncio: {item['nome'][:60]}",
+                                f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"]))
                 continue
 
             velho = ant.get("preco")
@@ -698,7 +754,7 @@ def checar_buscas() -> None:
                                 item["url"]))
             elif novo and not velho:
                 eventos.append((f"✅ Voltou ao estoque: {nome}", f"{item['loja']}\n{brl(novo)}", item["url"]))
-            elif velho and not novo and ant.get("disponivel"):
+            elif velho and not novo and ant.get("disponivel") and not chave.startswith("promobit:"):
                 eventos.append((f"⛔ Esgotou: {nome}", f"{item['loja']}\nÚltimo preço: {brl(velho)}", item["url"]))
 
             if novo != velho:
