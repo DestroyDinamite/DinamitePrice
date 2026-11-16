@@ -122,6 +122,18 @@
       "nome_loja": "TNT Info",
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
       "inicializada": true
+    },
+    {
+      "rotulo": "Terabyte · RTX 5070 Ti",
+      "tipo": "terabyte",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "Terabyte · RTX 5080",
+      "tipo": "terabyte",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {

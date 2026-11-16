@@ -60,6 +60,14 @@ powercfg /setactive SCHEME_CURRENT
 Isso faz o notebook nunca suspender na tomada, apagar a tela depois de 5 minutos e não fazer nada ao fechar a tampa.
 Ative também o **limite de carga da bateria** no app da marca do notebook (60–80%).
 
+### Atualizar o app (quando houver melhorias ou lojas novas)
+```powershell
+cd C:\DinamitePrice
+python monitor.py atualizar
+Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice
+```
+Isso baixa o código novo e inclui buscas novas sem apagar o histórico de preços.
+
 ### Comandos úteis
 | Comando | O que faz |
 |---|---|
@@ -80,6 +88,7 @@ Hoje ele cobre:
 - **Pato Loco:** RTX 5070 Ti e RTX 5080 da categoria de placas de vídeo
 - **TNT Info:** site (busca) e vitrine da loja no Mercado Livre
 - **Americanas** e **Ibyte:** busca da loja
+- **Terabyte:** busca do site (funciona pela internet de casa)
 - **Lojas oficiais no Mercado Livre:** Gigabyte, NVIDIA e Inno3D
 
 Você recebe aviso quando:

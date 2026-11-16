@@ -540,6 +540,14 @@ def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[s
     return itens
 
 
+_LINK_PRODUTO = re.compile(r"^(https?://[^/]+)?/produto/")
+_SEM_ESTOQUE = re.compile(r"esgotad|indispon|avise-me|todos vendidos|sem estoque", re.I)
+
+
+def _links_produto(no) -> set[str]:
+    return {x["href"].split("?")[0] for x in no.select("a[href]") if _LINK_PRODUTO.match(x["href"])}
+
+
 def _card_do_link(link):
     """Sobe a partir do link até o menor bloco que contém o preço no PIX de um único produto."""
     no = link
@@ -548,29 +556,34 @@ def _card_do_link(link):
             no = no.parent
         if no is None:
             return None
-        hrefs = {x["href"].split("?")[0] for x in no.select('a[href*="/produto/"]')}
-        if len(hrefs) > 1:
+        if len(_links_produto(no)) > 1:
             return None
-        if re.search(r"no\s*pix|esgotad|indispon|avise-me", no.get_text(" ", strip=True), re.I):
+        texto = no.get_text(" ", strip=True)
+        if re.search(r"no\s*pix", texto, re.I) or _SEM_ESTOQUE.search(texto):
             return no
     return None
 
 
-def buscar_tnt(termo: str, filtro: str) -> dict[str, dict]:
-    """Busca no site da TNT Info (tntinfo.com.br/busca?busca=...)."""
+def buscar_cards_pix(url_busca: str, termo: str, filtro: str, nome_loja: str, prefixo: str,
+                     param_pagina: str | None = "pagina") -> dict[str, dict]:
+    """Lê páginas de busca cujos cards mostram 'R$ X ... no Pix' (TNT Info, Terabyte...)."""
     regex = re.compile(filtro, re.I)
+    base = re.match(r"https?://[^/]+", url_busca).group(0)
     itens: dict[str, dict] = {}
     vistos: set[str] = set()
     for pagina in range(1, 8):
-        url = f"https://www.tntinfo.com.br/busca?busca={requests.utils.quote(termo)}"
+        url = url_busca.format(termo=requests.utils.quote(termo).replace("%20", "+"))
         if pagina > 1:
-            url += f"&pagina={pagina}"
+            if not param_pagina:
+                break
+            url += f"&{param_pagina}={pagina}"
         resp = requests.get(url, headers=HEADERS, timeout=40)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
         links = {}
-        for a in soup.select('a[href*="/produto/"]'):
-            links.setdefault(a["href"].split("?")[0], a)
+        for a in soup.select("a[href]"):
+            if _LINK_PRODUTO.match(a["href"]):
+                links.setdefault(a["href"].split("?")[0], a)
         novos = set(links) - vistos
         if not novos:
             break
@@ -583,25 +596,37 @@ def buscar_tnt(termo: str, filtro: str) -> dict[str, dict]:
             img = card.select_one("img[alt]")
             tit = card.select_one("h1, h2, h3, h4, [class*=name], [class*=title], [class*=nome]")
             candidatos = [a.get("title"), tit.get_text(" ", strip=True) if tit else None,
-                          img.get("alt") if img else None,
-                          card.get_text(" | ", strip=True).split(" | ")[0]]
-            nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 15 and "R$" not in c), "")
+                          img.get("alt") if img else None]
+            candidatos += card.get_text(" | ", strip=True).split(" | ")
+            nome = next((c.strip() for c in candidatos
+                         if c and len(c.strip()) >= 20 and "R$" not in c and "placa" in c.lower()), "")
             nome = nome or re.split(r"\s*R\$", a.get_text(" ", strip=True))[0]
             if not regex.search(nome) or "placa" not in nome.lower():
                 continue
             texto = card.get_text(" ", strip=True)
             antes_pix = re.split(r"no\s*pix", texto, flags=re.I)[0]
             valores = re.findall(r"R\$\s*([\d.]+,\d{2})", antes_pix)
-            esgotado = bool(re.search(r"esgotad|indispon|avise-me", texto, re.I))
-            preco = parse_preco(valores[-1]) if valores and not esgotado and "pix" in texto.lower() else None
+            tem_pix = re.search(r"no\s*pix", texto, re.I)
+            preco = parse_preco(valores[-1]) if valores and tem_pix and not _SEM_ESTOQUE.search(texto) else None
             parc = re.search(r"(\d+)\s*x\s*de\s*R\$\s*([\d.]+,\d{2})\s*sem juros", texto)
-            link = href if href.startswith("http") else "https://www.tntinfo.com.br" + href
-            itens[f"tnt:{href.rstrip('/').rsplit('-', 1)[-1]}"] = {
-                "loja": "TNT Info", "nome": nome[:110], "url": link, "preco": preco,
+            link = href if href.startswith("http") else base + href
+            m = re.search(r"/produto/(\d+)/", link)
+            ident = m.group(1) if m else link.rstrip("/").rsplit("-", 1)[-1]
+            itens[f"{prefixo}:{ident}"] = {
+                "loja": nome_loja, "nome": nome[:110], "url": link, "preco": preco,
                 "parcelado": int(parc.group(1)) * parse_preco(parc.group(2)) if parc and preco else None,
                 "disponivel": preco is not None,
             }
     return itens
+
+
+def buscar_tnt(termo: str, filtro: str) -> dict[str, dict]:
+    return buscar_cards_pix("https://www.tntinfo.com.br/busca?busca={termo}", termo, filtro, "TNT Info", "tnt")
+
+
+def buscar_terabyte(termo: str, filtro: str) -> dict[str, dict]:
+    return buscar_cards_pix("https://www.terabyteshop.com.br/busca?str={termo}", termo, filtro,
+                            "Terabyte", "terabyte", param_pagina=None)
 
 
 def carregar_buscas() -> dict:
@@ -626,6 +651,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "terabyte":
+                encontrados = buscar_terabyte(b["termo"], b["filtro"])
             elif b["tipo"] == "tnt":
                 encontrados = buscar_tnt(b["termo"], b["filtro"])
             elif b["tipo"] == "vtex":
@@ -861,6 +888,37 @@ def cmd_debug(args) -> None:
                     print(f"  {sel}: {len(el)} → {el[0].get_text(' ', strip=True)[:150]}")
 
 
+REPO_RAW = "https://raw.githubusercontent.com/DestroyDinamite/DinamitePrice/main/"
+
+
+def cmd_atualizar(_args) -> None:
+    """Baixa a versão mais nova do monitor.py e inclui buscas novas, sem mexer no histórico."""
+    codigo = requests.get(REPO_RAW + "monitor.py", timeout=30)
+    codigo.raise_for_status()
+    if "def main" not in codigo.text:
+        sys.exit("Download do monitor.py veio incompleto; nada foi alterado.")
+    atual = Path(__file__)
+    if atual.read_text(encoding="utf-8") != codigo.text:
+        atual.with_suffix(".py.bak").write_text(atual.read_text(encoding="utf-8"), encoding="utf-8")
+        atual.write_text(codigo.text, encoding="utf-8")
+        print("✔ monitor.py atualizado (cópia anterior em monitor.py.bak)")
+    else:
+        print("✔ monitor.py já estava na versão mais nova")
+
+    remotas = requests.get(REPO_RAW + "buscas.json", timeout=30).json().get("buscas", [])
+    dados = carregar_buscas()
+    rotulos = {b.get("rotulo") for b in dados.get("buscas", [])}
+    novas = [dict(b, inicializada=False) for b in remotas if b.get("rotulo") not in rotulos]
+    if novas:
+        dados.setdefault("buscas", []).extend(novas)
+        salvar_buscas(dados)
+    for b in novas:
+        print(f"✔ busca nova: {b['rotulo']}")
+    if not novas:
+        print("✔ nenhuma busca nova")
+    print("Reinicie o monitor para usar a versão nova: Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice")
+
+
 def cmd_test_notify(_args) -> None:
     notificar("Teste do Monitor de Preços", "Se você recebeu isso, está funcionando! ✅")
 
@@ -890,6 +948,7 @@ def main() -> None:
     rn.set_defaults(func=cmd_run)
 
     sub.add_parser("test-notify", help="testar notificações").set_defaults(func=cmd_test_notify)
+    sub.add_parser("atualizar", help="baixar a versão nova e buscas novas").set_defaults(func=cmd_atualizar)
 
     d = sub.add_parser("debug", help="mostrar o que o app enxerga nas páginas")
     d.add_argument("urls", nargs="+")
