@@ -32,6 +32,65 @@
       "url": "https://patoloco.com.br/produtos/placa-de-video",
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
       "inicializada": true
+    },
+    {
+      "rotulo": "Americanas · RTX 5070 Ti",
+      "tipo": "vtex",
+      "dominio": "www.americanas.com.br",
+      "nome_loja": "Americanas",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "Americanas · RTX 5080",
+      "tipo": "vtex",
+      "dominio": "www.americanas.com.br",
+      "nome_loja": "Americanas",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Ibyte · RTX 5070 Ti",
+      "tipo": "vtex",
+      "dominio": "www.ibyte.com.br",
+      "nome_loja": "Ibyte",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "Ibyte · RTX 5080",
+      "tipo": "vtex",
+      "dominio": "www.ibyte.com.br",
+      "nome_loja": "Ibyte",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Gigabyte oficial (Mercado Livre)",
+      "tipo": "ml_loja",
+      "urls": [
+        "https://www.mercadolivre.com.br/loja/gigabyte"
+      ],
+      "nome_loja": "Gigabyte oficial",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Inno3D oficial (Mercado Livre)",
+      "tipo": "ml_loja",
+      "urls": [
+        "https://www.mercadolivre.com.br/loja/inno3d"
+      ],
+      "nome_loja": "Inno3D oficial",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "NVIDIA oficial (Mercado Livre)",
+      "tipo": "ml_loja",
+      "urls": [
+        "https://www.mercadolivre.com.br/loja/nvidia"
+      ],
+      "nome_loja": "NVIDIA oficial",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {
