@@ -89,6 +89,7 @@ Hoje ele cobre:
 - **TNT Info:** site (busca) e vitrine da loja no Mercado Livre
 - **Americanas** e **Ibyte:** busca da loja
 - **Terabyte:** busca do site (funciona pela internet de casa)
+- **AliExpress:** busca do site (RTX 5070 Ti e 5080). Atenção: tem anúncio suspeito, o filtro ainda vai ser criado
 - **Promobit:** ofertas de RTX 5070 Ti/5080 postadas pela comunidade (cobre Magalu, Pichau, Mercado Livre, Amazon...). Chega como "🔥 Promobit".
 - **Lojas oficiais no Mercado Livre:** Gigabyte, NVIDIA e Inno3D
 
@@ -101,7 +102,7 @@ Você recebe aviso quando:
 Se houver mais de 6 mudanças de uma vez, chega uma única notificação com o resumo.
 Para ver a lista atual com os preços, rode `python monitor.py buscas`.
 
-Lojas que bloquearam o acesso quando o app rodava no GitHub (podem funcionar pela internet de casa, a testar): Amazon, Magalu, Pichau, Terabyte, Netshoes, Casas Bahia e Carrefour.
+Lojas que bloquearam o acesso quando o app rodava no GitHub (podem funcionar pela internet de casa, a testar): Amazon, Magalu, Pichau, Netshoes, Casas Bahia, Carrefour e Shopee (a Terabyte funciona pela internet de casa).
 
 ## Linux / Mac
 

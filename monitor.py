@@ -683,6 +683,43 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
     return itens
 
 
+def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2) -> dict[str, dict]:
+    """Lê a busca do AliExpress Brasil (pt.aliexpress.com/w/wholesale-<termo>.html)."""
+    regex = re.compile(filtro, re.I)
+    slug = re.sub(r"\s+", "-", termo.strip().lower())
+    itens: dict[str, dict] = {}
+    for pagina in range(1, paginas + 1):
+        url = f"https://pt.aliexpress.com/w/wholesale-{slug}.html" + (f"?page={pagina}" if pagina > 1 else "")
+        resp = requests.get(url, headers=HEADERS, timeout=40)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        if re.search(r"captcha|punish|slide to verify", resp.text[:20000], re.I) and not soup.select('[class*="card-out-wrapper"]'):
+            print(f"   AliExpress pág. {pagina}: pediu verificação (captcha) — tento de novo na próxima")
+            break
+        antes = len(itens)
+        for card in soup.select('[class*="card-out-wrapper"]'):
+            a = card.select_one('a[href*="/item/"]')
+            m = re.search(r"/item/(\d+)\.html", a["href"]) if a else None
+            if not m or f"aliexpress:{m.group(1)}" in itens:
+                continue
+            tit = card.select_one("h1, h2, h3, [class*=title], [title]")
+            pedacos = card.get_text(" | ", strip=True).split(" | ")
+            candidatos = [tit.get("title") if tit else None, tit.get_text(" ", strip=True) if tit else None] + pedacos
+            nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 15 and "R$" not in c), "")
+            if not nome or not regex.search(nome):
+                continue
+            valores = re.findall(r"R\$\s*([\d.]+,\d{2})", card.get_text(" ", strip=True))
+            preco = parse_preco(valores[0]) if valores else None
+            itens[f"aliexpress:{m.group(1)}"] = {
+                "loja": "AliExpress", "nome": nome[:110],
+                "url": f"https://pt.aliexpress.com/item/{m.group(1)}.html",
+                "preco": preco, "parcelado": None, "disponivel": preco is not None,
+            }
+        if len(itens) == antes:
+            break
+    return itens
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -705,6 +742,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "aliexpress":
+                encontrados = buscar_aliexpress(b["termo"], b["filtro"])
             elif b["tipo"] == "promobit":
                 encontrados = buscar_promobit(b["urls"], b["filtro"])
             elif b["tipo"] == "terabyte":
