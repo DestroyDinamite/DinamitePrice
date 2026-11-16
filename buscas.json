@@ -25,6 +25,12 @@
         "https://www.mercadolivre.com.br/loja/setup-ninja/up-que-importa",
         "https://www.mercadolivre.com.br/loja/setup-ninja/shadow"
       ]
+    },
+    {
+      "rotulo": "Pato Loco · RTX 5070 Ti / 5080",
+      "tipo": "patoloco",
+      "url": "https://patoloco.com.br/produtos/placa-de-video",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {

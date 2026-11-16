@@ -445,6 +445,60 @@ def buscar_ml_loja(url: str, filtro: str, nome_loja: str) -> dict[str, dict]:
     return itens
 
 
+def _cards_patoloco(soup: BeautifulSoup, filtro: re.Pattern) -> dict[str, dict]:
+    itens: dict[str, dict] = {}
+    for card in soup.select("div.product-info"):
+        link_el = next((a for a in card.select("a[href]")
+                        if "patoloco.com.br/" in a["href"] and "/produtos/" not in a["href"]), None)
+        if not link_el:
+            continue
+        url = link_el["href"].split("?")[0].split("#")[0]
+        nome = (link_el.get("title") or link_el.get_text(" ", strip=True)
+                or card.get_text(" | ", strip=True).split(" | ")[0]).strip()
+        if not filtro.search(nome) or "placa" not in nome.lower():
+            continue
+        texto = card.get_text(" ", strip=True)
+        pix = re.search(r"R\$\s*([\d.]+,\d{2})\s*à vista", texto)
+        parc = re.search(r"(\d+)x\s*de\s*R\$\s*([\d.]+,\d{2})", texto)
+        esgotado = bool(re.search(r"esgotad|indispon|avise-me", texto, re.I))
+        preco = parse_preco(pix.group(1)) if pix and not esgotado else None
+        itens[f"patoloco:{url.rstrip('/').rsplit('/', 1)[-1]}"] = {
+            "loja": "Pato Loco",
+            "nome": nome[:110],
+            "url": url,
+            "preco": preco,
+            "parcelado": (int(parc.group(1)) * parse_preco(parc.group(2))) if parc and preco else None,
+            "disponivel": preco is not None,
+        }
+    return itens
+
+
+def buscar_patoloco(url: str, filtro: str) -> dict[str, dict]:
+    """Lê a categoria (com paginação) da Pato Loco e pega as placas que casam com o filtro."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    a_visitar, visitadas = [url], set()
+    while a_visitar and len(visitadas) < 15:
+        atual = a_visitar.pop(0)
+        if atual in visitadas:
+            continue
+        visitadas.add(atual)
+        resp = requests.get(atual, headers=HEADERS, timeout=40)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        antes = len(itens)
+        itens.update(_cards_patoloco(soup, regex))
+        print(f"   {atual}: {len(soup.select('div.product-info'))} cards, +{len(itens) - antes} placas")
+        base = url.split("?")[0]
+        for a in soup.select("a[href]"):
+            h = a["href"]
+            if h.startswith("/"):
+                h = "https://patoloco.com.br" + h
+            if h.split("?")[0] == base and re.search(r"[?&](pagina|page|p|pg)=\d+", h) and h not in visitadas:
+                a_visitar.append(h)
+    return itens
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -467,6 +521,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "patoloco":
+                encontrados = buscar_patoloco(b["url"], b["filtro"])
             elif b["tipo"] == "ml_loja":
                 encontrados = {}
                 for u in b.get("urls") or [b["url"]]:

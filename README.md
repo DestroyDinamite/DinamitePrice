@@ -63,6 +63,7 @@ O arquivo `buscas.json` define buscas que acompanham **todos os anúncios** de u
 Hoje ele cobre:
 - **Kabum:** todas as RTX 5070 Ti e todas as RTX 5080, inclusive as de vendedores parceiros
 - **Setup Ninja (Mercado Livre):** RTX 5070 Ti e RTX 5080 da vitrine da loja
+- **Pato Loco:** RTX 5070 Ti e RTX 5080 da categoria de placas de vídeo
 
 Você recebe aviso quando:
 - 📉📈 o preço à vista (PIX) muda
