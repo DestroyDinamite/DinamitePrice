@@ -637,6 +637,15 @@ def cmd_debug(args) -> None:
             print(f"{url}\n  ERRO: {e}")
             continue
         html = resp.text
+        if "json" in resp.headers.get("content-type", ""):
+            try:
+                dados = resp.json()
+                prim = dados[0] if isinstance(dados, list) and dados else dados
+                print(f"{url}\n  HTTP {resp.status_code} · JSON · {len(dados) if isinstance(dados, list) else 'obj'} itens"
+                      f" · 1º: {str(prim.get('productName') if isinstance(prim, dict) else prim)[:100]}")
+            except ValueError:
+                print(f"{url}\n  HTTP {resp.status_code} · JSON inválido")
+            continue
         soup = BeautifulSoup(html, "html.parser")
         print(f"{url}\n  HTTP {resp.status_code} · {len(html)} bytes · título: {_titulo(soup)[:90]}")
         print(f"  preço (página de produto): {brl(extrair_preco(html)[0])}")
