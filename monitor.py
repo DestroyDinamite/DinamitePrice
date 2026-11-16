@@ -534,8 +534,9 @@ def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[s
 def _card_do_link(link):
     """Sobe a partir do link até o menor bloco que contém o preço no PIX de um único produto."""
     no = link
-    for _ in range(10):
-        no = no.parent
+    for i in range(11):
+        if i > 0:
+            no = no.parent
         if no is None:
             return None
         hrefs = {x["href"].split("?")[0] for x in no.select('a[href*="/produto/"]')}
@@ -571,9 +572,12 @@ def buscar_tnt(termo: str, filtro: str) -> dict[str, dict]:
             if card is None:
                 continue
             img = card.select_one("img[alt]")
-            nome = (a.get("title") or a.get_text(" ", strip=True) or (img["alt"] if img else "")).strip()
-            if len(nome) < 10:
-                nome = card.get_text(" | ", strip=True).split(" | ")[0]
+            tit = card.select_one("h1, h2, h3, h4, [class*=name], [class*=title], [class*=nome]")
+            candidatos = [a.get("title"), tit.get_text(" ", strip=True) if tit else None,
+                          img.get("alt") if img else None,
+                          card.get_text(" | ", strip=True).split(" | ")[0]]
+            nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 15 and "R$" not in c), "")
+            nome = nome or re.split(r"\s*R\$", a.get_text(" ", strip=True))[0]
             if not regex.search(nome) or "placa" not in nome.lower():
                 continue
             texto = card.get_text(" ", strip=True)
@@ -729,6 +733,13 @@ def _walk(obj, achados, profundidade=0):
 
 def cmd_debug(args) -> None:
     for url in args.urls:
+        if url.startswith("tnt:"):  # testa a busca da TNT: tnt:rtx+5080
+            termo = url[4:].replace("+", " ")
+            res = buscar_tnt(termo, r"(?<!\d)5070\s*-?\s*ti\b|(?<!\d)5080(?!\d)")
+            print(f"busca TNT '{termo}': {len(res)} placas")
+            for k, v in res.items():
+                print(f"   {brl(v['preco']):>14}  {v['nome'][:80]}  [{k}]")
+            continue
         print("=" * 70)
         try:
             resp = requests.get(url, headers=HEADERS, timeout=30)
