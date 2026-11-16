@@ -496,6 +496,41 @@ def buscar_patoloco(url: str, filtro: str) -> dict[str, dict]:
     return itens
 
 
+def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[str, dict]:
+    """Usa a busca pública de lojas na plataforma VTEX (Americanas e outras)."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    for inicio in range(0, 250, 50):
+        url = (f"https://{dominio}/api/catalog_system/pub/products/search"
+               f"?ft={requests.utils.quote(termo)}&_from={inicio}&_to={inicio + 49}")
+        resp = requests.get(url, headers={**HEADERS, "Accept": "application/json"}, timeout=40)
+        if resp.status_code in (206, 200):
+            lista = resp.json()
+        else:
+            resp.raise_for_status()
+            lista = []
+        for p in lista:
+            nome = str(p.get("productName") or "")
+            if not regex.search(nome) or "placa" not in nome.lower():
+                continue
+            ofertas = []
+            for sku in p.get("items", []):
+                for vend in sku.get("sellers", []):
+                    co = vend.get("commertialOffer") or {}
+                    if (co.get("AvailableQuantity") or 0) > 0 and _num(co.get("Price")):
+                        ofertas.append((float(co["Price"]), vend.get("sellerName") or nome_loja))
+            preco, vendedor = min(ofertas) if ofertas else (None, "")
+            link = p.get("link") or f"https://{dominio}/{p.get('linkText', '')}/p"
+            loja = nome_loja + (f" (vendido por {vendedor})" if vendedor and vendedor.lower() not in nome_loja.lower() else "")
+            itens[f"vtex:{dominio}:{p.get('productId')}"] = {
+                "loja": loja, "nome": nome[:110], "url": link.split("?")[0],
+                "preco": preco, "parcelado": None, "disponivel": preco is not None,
+            }
+        if len(lista) < 50:
+            break
+    return itens
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -518,6 +553,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "vtex":
+                encontrados = buscar_vtex(b["dominio"], b["termo"], b["filtro"], b.get("nome_loja", b["dominio"]))
             elif b["tipo"] == "patoloco":
                 encontrados = buscar_patoloco(b["url"], b["filtro"])
             elif b["tipo"] == "ml_loja":
