@@ -147,15 +147,17 @@
       "inicializada": true
     },
     {
-      "rotulo": "AliExpress · RTX 5070 Ti",
+      "rotulo": "AliExpress (envio do Brasil) · RTX 5070 Ti",
       "tipo": "aliexpress",
       "termo": "rtx 5070 ti",
+      "envio_brasil": true,
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
     },
     {
-      "rotulo": "AliExpress · RTX 5080",
+      "rotulo": "AliExpress (envio do Brasil) · RTX 5080",
       "tipo": "aliexpress",
       "termo": "rtx 5080",
+      "envio_brasil": true,
       "filtro": "(?<!\\d)5080(?!\\d)"
     }
   ],
@@ -1371,5 +1373,9 @@
       ],
       "visto_em": "2026-11-16 12:00"
     }
-  }
+  },
+  "removidas": [
+    "AliExpress · RTX 5070 Ti",
+    "AliExpress · RTX 5080"
+  ]
 }

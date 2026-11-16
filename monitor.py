@@ -683,13 +683,14 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
     return itens
 
 
-def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2) -> dict[str, dict]:
+def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2, envio_brasil: bool = False) -> dict[str, dict]:
     """Lê a busca do AliExpress Brasil (pt.aliexpress.com/w/wholesale-<termo>.html)."""
     regex = re.compile(filtro, re.I)
     slug = re.sub(r"\s+", "-", termo.strip().lower())
     itens: dict[str, dict] = {}
     for pagina in range(1, paginas + 1):
-        url = f"https://pt.aliexpress.com/w/wholesale-{slug}.html" + (f"?page={pagina}" if pagina > 1 else "")
+        params = (["shipFromCountry=BR"] if envio_brasil else []) + ([f"page={pagina}"] if pagina > 1 else [])
+        url = f"https://pt.aliexpress.com/w/wholesale-{slug}.html" + ("?" + "&".join(params) if params else "")
         resp = requests.get(url, headers=HEADERS, timeout=40)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -715,6 +716,7 @@ def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2) -> dict[str, di
                 "url": f"https://pt.aliexpress.com/item/{m.group(1)}.html",
                 "preco": preco, "parcelado": None, "disponivel": preco is not None,
             }
+        print(f"   AliExpress {url}: {len(soup.select('[class*="card-out-wrapper"]'))} cards, +{len(itens) - antes} placas")
         if len(itens) == antes:
             break
     return itens
@@ -743,7 +745,7 @@ def checar_buscas() -> None:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
             elif b["tipo"] == "aliexpress":
-                encontrados = buscar_aliexpress(b["termo"], b["filtro"])
+                encontrados = buscar_aliexpress(b["termo"], b["filtro"], envio_brasil=b.get("envio_brasil", False))
             elif b["tipo"] == "promobit":
                 encontrados = buscar_promobit(b["urls"], b["filtro"])
             elif b["tipo"] == "terabyte":
@@ -1032,7 +1034,8 @@ def cmd_atualizar(_args) -> None:
     else:
         print("✔ monitor.py já estava na versão mais nova")
 
-    remotas = requests.get(raw + "buscas.json", timeout=30).json().get("buscas", [])
+    remotas_json = requests.get(raw + "buscas.json", timeout=30).json()
+    remotas = remotas_json.get("buscas", [])
     dados = carregar_buscas()
     rotulos = {b.get("rotulo") for b in dados.get("buscas", [])}
     novas = [dict(b, inicializada=False) for b in remotas if b.get("rotulo") not in rotulos]
@@ -1046,12 +1049,21 @@ def cmd_atualizar(_args) -> None:
                 b.update(novo)
                 alteradas += 1
                 print(f"✔ busca atualizada: {b['rotulo']}")
-    if novas or alteradas:
+    removidas = set(remotas_json.get("removidas", []))
+    saindo = [b for b in dados.get("buscas", []) if b.get("rotulo") in removidas]
+    for b in saindo:
+        dados["buscas"].remove(b)
+        prefixo = {"ml_loja": "ml:", "vtex": "vtex:"}.get(b.get("tipo"), f"{b.get('tipo')}:")
+        apagados = [k for k in list(dados.get("itens", {})) if k.startswith(prefixo)]
+        for k in apagados:
+            del dados["itens"][k]
+        print(f"✔ busca removida: {b['rotulo']} ({len(apagados)} anúncios registrados apagados)")
+    if novas or alteradas or saindo:
         dados.setdefault("buscas", []).extend(novas)
         salvar_buscas(dados)
     for b in novas:
         print(f"✔ busca nova: {b['rotulo']}")
-    if not novas and not alteradas:
+    if not novas and not alteradas and not saindo:
         print("✔ nenhuma busca nova ou alterada")
     print("Agora reinicie o monitor para ele usar a versão nova:")
     print("   Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice")
