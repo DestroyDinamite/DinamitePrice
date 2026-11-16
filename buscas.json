@@ -139,10 +139,9 @@
       "rotulo": "Promobit · RTX 5070 Ti / 5080",
       "tipo": "promobit",
       "urls": [
-        "https://www.promobit.com.br/promocoes/hardware-perifericos/s/",
-        "https://www.promobit.com.br/promocoes/placas-de-video/s/",
+        "https://www.promobit.com.br/promocoes/placa-video/s/",
         "https://www.promobit.com.br/promocoes/informatica/",
-        "https://www.promobit.com.br/promocoes/recentes/"
+        "https://www.promobit.com.br/promocoes/hardware-perifericos/s/"
       ],
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
       "inicializada": true
