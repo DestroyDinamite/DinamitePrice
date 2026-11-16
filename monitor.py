@@ -954,6 +954,14 @@ def main() -> None:
     d.add_argument("urls", nargs="+")
     d.set_defaults(func=cmd_debug)
 
+    # No Windows, ao salvar a saída em arquivo, caracteres como → ou emojis não podem derrubar o app
+    for fluxo in (sys.stdout, sys.stderr):
+        if fluxo is not None and hasattr(fluxo, "reconfigure"):
+            try:
+                fluxo.reconfigure(errors="replace")
+            except Exception:
+                pass
+
     args = ap.parse_args()
     args.func(args)
 
