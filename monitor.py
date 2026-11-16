@@ -711,6 +711,14 @@ def cmd_debug(args) -> None:
         placas = [c.get_text(" ", strip=True)[:90] for c in soup.select(".poly-card")
                   if re.search(r"5070|5080|placa", c.get_text(" ", strip=True), re.I)]
         print(f"  cards com placa/5070/5080: {len(placas)}", placas[:4])
+        for f in soup.select("form")[:4]:
+            print(f"  form: action={f.get('action')} method={f.get('method')} inputs={[i.get('name') for i in f.select('input')][:6]}")
+        prods = soup.select('a[href*="/produto/"]')
+        for x in prods[:2]:
+            pai = x.find_parent(["li", "article", "div"])
+            print(f"  produto: {x['href'][:110]}")
+            if pai:
+                print(f"     pai {pai.name}.{'.'.join(pai.get('class', []))[:50]}: {pai.get_text(' | ', strip=True)[:220]}")
         precos_el = soup.select("[class*=price]")
         vistos = 0
         for el in precos_el:
