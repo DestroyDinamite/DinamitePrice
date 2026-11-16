@@ -58,7 +58,7 @@ jobs:
           fim=$((SECONDS + 20700))
           while [ $SECONDS -lt $fim ]; do
             inicio=$SECONDS
-            git pull -q --rebase origin main || { git rebase --abort 2>/dev/null; git reset -q --hard origin/main; }
+            git pull -q --rebase origin main || { git rebase --abort 2>/dev/null || true; git reset -q --hard origin/main; }
             echo "::group::$(date '+%d/%m %H:%M') conferência"
             python monitor.py check || echo "falhou, tento de novo na próxima"
             echo "::endgroup::"
@@ -67,7 +67,7 @@ jobs:
               git commit -qm "Atualiza preços"
               for t in 1 2 3; do
                 git pull -q --rebase origin main && git push -q && break
-                git rebase --abort 2>/dev/null; sleep 5
+                git rebase --abort 2>/dev/null || true; sleep 5
               done
             fi
             espera=$((300 - (SECONDS - inicio)))
@@ -114,4 +114,4 @@ jobs:
           git add produtos.json buscas.json
           git diff --cached --quiet && exit 0
           git commit -qm "Atualiza lista/preços"
-          for t in 1 2 3; do git pull -q --rebase origin main && git push -q && break; git rebase --abort 2>/dev/null; sleep 5; done
+          for t in 1 2 3; do git pull -q --rebase origin main && git push -q && break; git rebase --abort 2>/dev/null || true; sleep 5; done
