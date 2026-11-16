@@ -777,6 +777,14 @@ def checar_buscas() -> None:
     else:
         for t, m, link in eventos:
             notificar(t, m, link)
+    # Se outra cópia do app (ex.: o 'atualizar') incluiu buscas novas enquanto esta conferência rodava,
+    # mantém essas buscas em vez de sobrescrever o arquivo sem elas.
+    try:
+        no_disco = carregar_buscas().get("buscas", [])
+        conhecidas = {b.get("rotulo") for b in dados["buscas"]}
+        dados["buscas"].extend(b for b in no_disco if b.get("rotulo") not in conhecidas)
+    except Exception:
+        pass
     salvar_buscas(dados)
 
 
@@ -972,7 +980,8 @@ def cmd_atualizar(_args) -> None:
         print(f"✔ busca nova: {b['rotulo']}")
     if not novas:
         print("✔ nenhuma busca nova")
-    print("Reinicie o monitor para usar a versão nova: Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice")
+    print("Agora reinicie o monitor para ele usar a versão nova:")
+    print("   Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice")
 
 
 def cmd_test_notify(_args) -> None:
