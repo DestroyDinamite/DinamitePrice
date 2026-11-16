@@ -722,6 +722,18 @@ def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2, envio_brasil: b
     return itens
 
 
+def _curto(nome: str) -> str:
+    """Nome enxuto para o resumo: tira 'Placa de Vídeo', 'NVIDIA GeForce' e detalhes técnicos."""
+    n = re.sub(r"(?i)placa\s+de\s+v[íi]deo|placa\s+gr[áa]fica|nvidia|geforce|\bgpu\b", "", nome)
+    n = re.split(r",|\s-\s|\s16\s?gb|\s16g\b", n, flags=re.I)[0]
+    return re.sub(r"\s+", " ", n).strip()[:45]
+
+
+def _loja_curta(loja: str) -> str:
+    m = re.match(r"Kabum \(vendido por (.+)\)", loja)
+    return f"Kabum/{m.group(1).title()}" if m else loja.replace(" (Mercado Livre)", " ML")
+
+
 def carregar_buscas() -> dict:
     if ARQUIVO_BUSCAS.exists():
         return json.loads(ARQUIVO_BUSCAS.read_text(encoding="utf-8"))
@@ -737,7 +749,7 @@ def checar_buscas() -> None:
     if not dados.get("buscas"):
         return
     estado = dados.setdefault("itens", {})
-    eventos: list[tuple[str, str, str]] = []   # (título, mensagem, link)
+    eventos: list[tuple[str, str, str, str, int]] = []   # (título, mensagem, link, linha do resumo, prioridade)
 
     for b in dados["buscas"]:
         rotulo = b.get("rotulo") or b.get("termo") or b.get("url")
@@ -784,10 +796,12 @@ def checar_buscas() -> None:
                 if chave.startswith("promobit:"):
                     if novo:  # oferta postada no Promobit e ainda ativa
                         loja = item["loja"].replace("Promobit → ", "")
-                        eventos.append((f"🔥 Promobit: {item['nome'][:60]}", f"{brl(novo)} na {loja}", item["url"]))
+                        eventos.append((f"🔥 Promobit: {item['nome'][:60]}", f"{brl(novo)} na {loja}", item["url"],
+                                        f"🔥 {_curto(item['nome'])}: {brl(novo)} · {loja} (Promobit)", 0))
                     continue
                 eventos.append((f"🆕 Novo anúncio: {item['nome'][:60]}",
-                                f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"]))
+                                f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"],
+                                f"🆕 {_curto(item['nome'])}: {brl(novo) if novo else 'sem estoque'} · {_loja_curta(item['loja'])}", 2))
                 continue
 
             velho = ant.get("preco")
@@ -795,14 +809,20 @@ def checar_buscas() -> None:
             if novo and velho and abs(novo - velho) >= 0.01:
                 pct = (novo - velho) / velho * 100
                 seta = "📉 Baixou" if novo < velho else "📈 Subiu"
-                extra = "\n🏆 Menor preço já registrado!" if ant.get("menor_preco") and novo < ant["menor_preco"] else ""
+                recorde = bool(ant.get("menor_preco") and novo < ant["menor_preco"])
+                extra = "\n🏆 Menor preço já registrado!" if recorde else ""
                 eventos.append((f"{seta}: {nome}",
                                 f"{item['loja']}\nDe {brl(velho)} para {brl(novo)} ({pct:+.1f}%){extra}",
-                                item["url"]))
+                                item["url"],
+                                f"{'📉' if novo < velho else '📈'} {_curto(item['nome'])}: {brl(velho)} → {brl(novo)} "
+                                f"({pct:+.0f}%){' 🏆' if recorde else ''} · {_loja_curta(item['loja'])}",
+                                0 if novo < velho else 3))
             elif novo and not velho:
-                eventos.append((f"✅ Voltou ao estoque: {nome}", f"{item['loja']}\n{brl(novo)}", item["url"]))
+                eventos.append((f"✅ Voltou ao estoque: {nome}", f"{item['loja']}\n{brl(novo)}", item["url"],
+                                f"✅ {_curto(item['nome'])}: voltou por {brl(novo)} · {_loja_curta(item['loja'])}", 1))
             elif velho and not novo and ant.get("disponivel") and not chave.startswith("promobit:"):
-                eventos.append((f"⛔ Esgotou: {nome}", f"{item['loja']}\nÚltimo preço: {brl(velho)}", item["url"]))
+                eventos.append((f"⛔ Esgotou: {nome}", f"{item['loja']}\nÚltimo preço: {brl(velho)}", item["url"],
+                                f"⛔ {_curto(item['nome'])}: esgotou · {_loja_curta(item['loja'])}", 4))
 
             if novo != velho:
                 hist = ant.setdefault("historico", [])
@@ -816,13 +836,15 @@ def checar_buscas() -> None:
         b["inicializada"] = True
 
     if len(eventos) > LIMITE_AVISOS_SEPARADOS:
-        linhas = [f"{t}\n   {m.splitlines()[-1]}" for t, m, _ in eventos]
+        # resumo: quedas e ofertas primeiro, cada linha com modelo, preço e loja
+        linhas = [r for *_, r, _p in sorted(eventos, key=lambda e: e[4])]
         texto = "\n".join(linhas)
         if len(texto) > 3500:
             texto = texto[:3500] + "\n…"
-        notificar(f"🔔 {len(eventos)} mudanças de preço/estoque", texto)
+        quedas = sum(1 for e in eventos if e[3].startswith("📉"))
+        notificar(f"🔔 {len(eventos)} mudanças" + (f" ({quedas} quedas de preço)" if quedas else ""), texto)
     else:
-        for t, m, link in eventos:
+        for t, m, link, *_ in eventos:
             notificar(t, m, link)
     # Se outra cópia do app (ex.: o 'atualizar') incluiu buscas novas enquanto esta conferência rodava,
     # mantém essas buscas em vez de sobrescrever o arquivo sem elas.
