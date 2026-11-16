@@ -689,6 +689,15 @@ def cmd_debug(args) -> None:
                        else x["href"].split("/")[1] if x["href"].startswith("/") and x["href"].count("/") >= 1 else "?"
                        for x in soup.select("a[href]"))
         print("  padrões de link:", segs.most_common(12))
+        pag = sorted({x["href"] for x in soup.select("a[href]") if re.search(r"pagin|page|[?&]p=|offset|limit", x["href"], re.I)})
+        print(f"  links de paginação ({len(pag)}):", " ".join(pag[:12]))
+        for el in soup.select("[class*=pagin], [class*=Pagin], [data-page], [class*=load-more], [class*=ver-mais]")[:4]:
+            print("  paginação el:", el.name, el.get("class"), {k: v for k, v in el.attrs.items() if k.startswith("data")}, el.get_text(" ", strip=True)[:120])
+        for sc in soup.find_all("script"):
+            t = sc.string or ""
+            m = re.search(r".{0,80}(pagina|totalPages|total_pages|ajax|loadMore|/api/).{0,120}", t, re.I)
+            if m:
+                print("  script:", m.group(0).replace("\n", " ")[:220])
         for sel in (".poly-card", ".ui-search-layout__item", ".andes-card"):
             cards = soup.select(sel)
             if cards:
