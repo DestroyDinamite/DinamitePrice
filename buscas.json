@@ -98,6 +98,27 @@
       "nome_loja": "NVIDIA oficial",
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
       "inicializada": true
+    },
+    {
+      "rotulo": "TNT Info · RTX 5070 Ti",
+      "tipo": "tnt",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "TNT Info · RTX 5080",
+      "tipo": "tnt",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "TNT Info (Mercado Livre)",
+      "tipo": "ml_loja",
+      "urls": [
+        "https://www.mercadolivre.com.br/loja/tnt-info"
+      ],
+      "nome_loja": "TNT Info",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {
