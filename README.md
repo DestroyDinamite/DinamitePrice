@@ -17,9 +17,9 @@ Os preços são conferidos a cada 5 minutos.
 
 **Opção A: ntfy, a mais fácil (notificação push no celular, sem cadastro)**
 1. Instale o app **ntfy** (Android ou iPhone).
-2. No app, toque em **+** e assine um tópico com um nome difícil de adivinhar, ex.: `precos-rafa-8f3k2`.
+2. No app, toque em **+** e assine um tópico com um nome difícil de adivinhar, ex.: `precos-x7k2m9q4`.
 3. No GitHub: **Settings → Secrets and variables → Actions → New repository secret**
-   - Nome: `NTFY_TOPICO` · Valor: `precos-rafa-8f3k2`
+   - Nome: `NTFY_TOPICO` · Valor: `precos-x7k2m9q4`
 
 **Opção B: Telegram**
 1. No Telegram, fale com **@BotFather**, envie `/newbot` e copie o **token**.
