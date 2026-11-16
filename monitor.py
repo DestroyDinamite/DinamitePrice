@@ -474,28 +474,25 @@ def _cards_patoloco(soup: BeautifulSoup, filtro: re.Pattern) -> dict[str, dict]:
 
 
 def buscar_patoloco(url: str, filtro: str) -> dict[str, dict]:
-    """Lê a categoria (com paginação) da Pato Loco e pega as placas que casam com o filtro."""
+    """Lê todas as páginas da categoria da Pato Loco (/categoria, /categoria/2, ...)."""
     regex = re.compile(filtro, re.I)
+    base = url.split("?")[0].rstrip("/")
     itens: dict[str, dict] = {}
-    a_visitar, visitadas = [url], set()
-    while a_visitar and len(visitadas) < 15:
-        atual = a_visitar.pop(0)
-        if atual in visitadas:
-            continue
-        visitadas.add(atual)
-        resp = requests.get(atual, headers=HEADERS, timeout=40)
+    urls_vistas: set[str] = set()
+    for pagina in range(1, 21):
+        resp = requests.get(base if pagina == 1 else f"{base}/{pagina}", headers=HEADERS, timeout=40)
+        if resp.status_code == 404:
+            break
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
-        antes = len(itens)
+        cards = soup.select("div.product-info")
+        links = {a["href"].split("?")[0] for c in cards for a in c.select("a[href]")
+                 if "patoloco.com.br/" in a["href"] and "/produtos/" not in a["href"]}
+        if not cards or links <= urls_vistas:
+            break  # página vazia ou repetida = acabou
+        urls_vistas |= links
         itens.update(_cards_patoloco(soup, regex))
-        print(f"   {atual}: {len(soup.select('div.product-info'))} cards, +{len(itens) - antes} placas")
-        base = url.split("?")[0]
-        for a in soup.select("a[href]"):
-            h = a["href"]
-            if h.startswith("/"):
-                h = "https://patoloco.com.br" + h
-            if h.split("?")[0] == base and re.search(r"[?&](pagina|page|p|pg)=\d+", h) and h not in visitadas:
-                a_visitar.append(h)
+    print(f"   Pato Loco: {pagina - 1 if not cards or links <= urls_vistas else pagina} páginas, {len(urls_vistas)} produtos lidos")
     return itens
 
 
