@@ -159,6 +159,18 @@
       "termo": "rtx 5080",
       "envio_brasil": true,
       "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Enifler · RTX 5070 Ti",
+      "tipo": "enifler",
+      "termo": "rtx 5070 ti",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b"
+    },
+    {
+      "rotulo": "Enifler · RTX 5080",
+      "tipo": "enifler",
+      "termo": "rtx 5080",
+      "filtro": "(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {

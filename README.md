@@ -89,6 +89,7 @@ Hoje ele cobre:
 - **TNT Info:** site (busca) e vitrine da loja no Mercado Livre
 - **Americanas** e **Ibyte:** busca da loja
 - **Terabyte:** busca do site (funciona pela internet de casa)
+- **Enifler:** busca do site (preço no Pix)
 - **AliExpress:** busca do site (RTX 5070 Ti e 5080). Atenção: tem anúncio suspeito, o filtro ainda vai ser criado
 - **Promobit:** ofertas de RTX 5070 Ti/5080 postadas pela comunidade (cobre Magalu, Pichau, Mercado Livre, Amazon...). Chega como "🔥 Promobit".
 - **Lojas oficiais no Mercado Livre:** Gigabyte, NVIDIA e Inno3D

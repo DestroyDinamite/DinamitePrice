@@ -722,6 +722,49 @@ def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2, envio_brasil: b
     return itens
 
 
+def buscar_enifler(termo: str, filtro: str) -> dict[str, dict]:
+    """Busca no site da Enifler (enifler.com.br/produtos?q=...), lendo os blocos 'product-card'."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    vistos: set[str] = set()
+    for pagina in range(1, 6):
+        url = f"https://www.enifler.com.br/produtos?q={requests.utils.quote(termo).replace('%20', '+')}&page={pagina}"
+        resp = requests.get(url, headers=HEADERS, timeout=40)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        novos = 0
+        for card in soup.select("div.product-card"):
+            a = next((x for x in card.select("a[href]")
+                      if not x["href"].startswith("#") and "?" not in x["href"] and len(x["href"]) > 10), None)
+            if not a:
+                continue
+            slug = a["href"].split("?")[0].rstrip("/").rsplit("/", 1)[-1]
+            if slug in vistos:
+                continue
+            vistos.add(slug)
+            novos += 1
+            tit = card.select_one("h1, h2, h3, h4, [class*=name], [class*=title]")
+            img = card.select_one("img[alt]")
+            candidatos = [a.get("title"), tit.get_text(" ", strip=True) if tit else None,
+                          img.get("alt") if img else None] + card.get_text(" | ", strip=True).split(" | ")
+            nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 20 and "R$" not in c), "")
+            if not regex.search(nome) or "placa" not in nome.lower() or _EXCLUIR_PROMOBIT.search(nome):
+                continue
+            texto = card.get_text(" ", strip=True)
+            antes_pix = re.split(r"no\s*pix", texto, flags=re.I)[0]
+            valores = re.findall(r"R\$\s*([\d.]+,\d{2})", antes_pix)
+            tem_pix = re.search(r"no\s*pix", texto, re.I)
+            preco = parse_preco(valores[-1]) if valores and tem_pix and not _SEM_ESTOQUE.search(texto) else None
+            itens[f"enifler:{slug}"] = {
+                "loja": "Enifler", "nome": nome[:110], "url": f"https://www.enifler.com.br/{slug}",
+                "preco": preco, "parcelado": parse_preco(valores[0]) if len(valores) > 1 and preco else None,
+                "disponivel": preco is not None,
+            }
+        if novos == 0:
+            break
+    return itens
+
+
 def _curto(nome: str) -> str:
     """Nome enxuto para o resumo: tira 'Placa de Vídeo', 'NVIDIA GeForce' e detalhes técnicos."""
     n = re.sub(r"(?i)placa\s+de\s+v[íi]deo|placa\s+gr[áa]fica|nvidia|geforce|\bgpu\b", "", nome)
@@ -756,6 +799,8 @@ def checar_buscas() -> None:
         try:
             if b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
+            elif b["tipo"] == "enifler":
+                encontrados = buscar_enifler(b["termo"], b["filtro"])
             elif b["tipo"] == "aliexpress":
                 encontrados = buscar_aliexpress(b["termo"], b["filtro"], envio_brasil=b.get("envio_brasil", False))
             elif b["tipo"] == "promobit":
