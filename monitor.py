@@ -612,6 +612,27 @@ def cmd_debug(args) -> None:
         placas = [c.get_text(" ", strip=True)[:90] for c in soup.select(".poly-card")
                   if re.search(r"5070|5080|placa", c.get_text(" ", strip=True), re.I)]
         print(f"  cards com placa/5070/5080: {len(placas)}", placas[:4])
+        precos_el = soup.select("[class*=price]")
+        vistos = 0
+        for el in precos_el:
+            anc = el
+            for _ in range(8):
+                anc = anc.parent
+                if anc is None:
+                    break
+                link = anc.select_one("a[href]")
+                if link:
+                    print(f"  card: {anc.name}.{'.'.join(anc.get('class', []))[:60]} → {link['href'][:110]}")
+                    print(f"        {anc.get_text(' | ', strip=True)[:260]}")
+                    vistos += 1
+                    break
+            if vistos >= 3:
+                break
+        from collections import Counter
+        segs = Counter(x["href"].split("/")[3] if x["href"].startswith("http") and x["href"].count("/") > 3
+                       else x["href"].split("/")[1] if x["href"].startswith("/") and x["href"].count("/") >= 1 else "?"
+                       for x in soup.select("a[href]"))
+        print("  padrões de link:", segs.most_common(12))
         for sel in (".poly-card", ".ui-search-layout__item", ".andes-card"):
             cards = soup.select(sel)
             if cards:
