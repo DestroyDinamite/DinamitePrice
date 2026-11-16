@@ -27,6 +27,15 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
+# Configurações locais (ex.: NTFY_TOPICO=...) num arquivo config.env ao lado do monitor.py
+for _cfg in ("config.env", ".env", "config.env.txt"):
+    _caminho = Path(__file__).with_name(_cfg)
+    if _caminho.exists():
+        for _linha in _caminho.read_text(encoding="utf-8-sig").splitlines():
+            if "=" in _linha and not _linha.lstrip().startswith("#"):
+                _k, _v = _linha.split("=", 1)
+                os.environ.setdefault(_k.strip(), _v.strip().strip('"'))
+
 ARQUIVO = Path(os.environ.get("MONITOR_ARQUIVO", Path(__file__).with_name("produtos.json")))
 
 HEADERS = {
@@ -702,13 +711,28 @@ def cmd_check(_args) -> None:
     checar_buscas()
 
 
+def _abrir_log() -> None:
+    """Quando roda escondido (pythonw), grava tudo em monitor.log."""
+    log = Path(__file__).with_name("monitor.log")
+    if log.exists() and log.stat().st_size > 5_000_000:
+        log.replace(log.with_suffix(".log.old"))
+    f = open(log, "a", encoding="utf-8", buffering=1)
+    sys.stdout = sys.stderr = f
+
+
 def cmd_run(args) -> None:
+    if sys.stdout is None or args.log:
+        _abrir_log()
     print(f"Monitorando a cada {args.minutos} min. Ctrl+C para parar.")
     while True:
+        inicio = time.time()
         print(f"\n— {agora()} —")
-        checar_todos()
-        checar_buscas()
-        time.sleep(args.minutos * 60)
+        try:
+            checar_todos()
+            checar_buscas()
+        except Exception as e:  # nunca para por causa de um erro pontual
+            print(f"erro inesperado: {e!r} — tento de novo na próxima")
+        time.sleep(max(10, args.minutos * 60 - (time.time() - inicio)))
 
 
 def _walk(obj, achados, profundidade=0):
@@ -861,7 +885,8 @@ def main() -> None:
     sub.add_parser("buscas", help="listar placas encontradas nas buscas").set_defaults(func=cmd_buscas)
 
     rn = sub.add_parser("run", help="checar continuamente")
-    rn.add_argument("--minutos", type=float, default=60)
+    rn.add_argument("--minutos", type=float, default=5)
+    rn.add_argument("--log", action="store_true", help="gravar a saída em monitor.log")
     rn.set_defaults(func=cmd_run)
 
     sub.add_parser("test-notify", help="testar notificações").set_defaults(func=cmd_test_notify)
