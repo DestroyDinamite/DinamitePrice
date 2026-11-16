@@ -965,9 +965,23 @@ def cmd_debug(args) -> None:
 REPO_RAW = "https://raw.githubusercontent.com/DestroyDinamite/DinamitePrice/main/"
 
 
+def _raw_mais_novo() -> str:
+    """Endereço dos arquivos na versão (commit) mais recente, para não pegar cópia antiga em cache."""
+    try:
+        r = requests.get("https://api.github.com/repos/DestroyDinamite/DinamitePrice/commits/main",
+                         headers={"Accept": "application/vnd.github.sha"}, timeout=20)
+        if r.status_code == 200 and re.fullmatch(r"[0-9a-f]{40}", r.text.strip()):
+            return f"https://raw.githubusercontent.com/DestroyDinamite/DinamitePrice/{r.text.strip()}/"
+    except Exception:
+        pass
+    return REPO_RAW
+
+
 def cmd_atualizar(_args) -> None:
     """Baixa a versão mais nova do monitor.py e inclui buscas novas, sem mexer no histórico."""
-    codigo = requests.get(REPO_RAW + "monitor.py", timeout=30)
+    raw = _raw_mais_novo()
+    print(f"Baixando de {raw}")
+    codigo = requests.get(raw + "monitor.py", timeout=30)
     codigo.raise_for_status()
     if "def main" not in codigo.text:
         sys.exit("Download do monitor.py veio incompleto; nada foi alterado.")
@@ -979,7 +993,7 @@ def cmd_atualizar(_args) -> None:
     else:
         print("✔ monitor.py já estava na versão mais nova")
 
-    remotas = requests.get(REPO_RAW + "buscas.json", timeout=30).json().get("buscas", [])
+    remotas = requests.get(raw + "buscas.json", timeout=30).json().get("buscas", [])
     dados = carregar_buscas()
     rotulos = {b.get("rotulo") for b in dados.get("buscas", [])}
     novas = [dict(b, inicializada=False) for b in remotas if b.get("rotulo") not in rotulos]
