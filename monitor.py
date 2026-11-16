@@ -707,7 +707,7 @@ def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2, envio_brasil: b
             pedacos = card.get_text(" | ", strip=True).split(" | ")
             candidatos = [tit.get("title") if tit else None, tit.get_text(" ", strip=True) if tit else None] + pedacos
             nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 15 and "R$" not in c), "")
-            if not nome or not regex.search(nome):
+            if not nome or not regex.search(nome) or _EXCLUIR_PROMOBIT.search(nome):
                 continue
             valores = re.findall(r"R\$\s*([\d.]+,\d{2})", card.get_text(" ", strip=True))
             preco = parse_preco(valores[0]) if valores else None
