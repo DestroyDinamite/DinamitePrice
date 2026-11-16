@@ -662,7 +662,8 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
             if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo):
                 continue
             casam += 1
-            ativa = str(o.get("offerStatusName", "")).upper() in ("APPROVED", "ACTIVE", "PUBLISHED")
+            st = str(o.get("offerStatusName", "")).upper()
+            ativa = not re.search(r"FINISH|EXPIR|CLOSE|ENDED|ENCERR|REJECT|DELET|INACTIVE|SOLD", st)
             loja = str(o.get("storeName") or "loja")
             cupom = o.get("offerCoupon")
             itens[f"promobit:{oid}"] = {
@@ -673,7 +674,9 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
                 "parcelado": None,
                 "disponivel": ativa,
             }
+        cats = Counter(f"{o.get('categorySlug')}/{o.get('subcategorySlug')}" for o in ofertas.values())
         print(f"   Promobit {url}: {len(ofertas)} ofertas {dict(status)}, {casam} de 5070 Ti/5080")
+        print(f"      categorias: {dict(cats.most_common(8))}")
     return itens
 
 
@@ -896,6 +899,10 @@ def cmd_debug(args) -> None:
                         if re.search(r"lista|_Loja|/loja/|busca|search|placa|video|vga", x["href"], re.I) and "/produtos" in x["href"] or re.search(r"lista|_Loja|/loja/", x["href"])})
         if hrefs:
             print(f"  links de listagem ({len(hrefs)}):", " ".join(hrefs[:15]))
+        promo = sorted({x["href"].split("?")[0] for x in soup.select("a[href]")
+                        if x["href"].startswith("/promocoes/") and "/loja/" not in x["href"]})
+        if promo:
+            print(f"  links /promocoes/ ({len(promo)}):", " ".join(promo[:60]))
         placas = [c.get_text(" ", strip=True)[:90] for c in soup.select(".poly-card")
                   if re.search(r"5070|5080|placa", c.get_text(" ", strip=True), re.I)]
         print(f"  cards com placa/5070/5080: {len(placas)}", placas[:4])
@@ -973,13 +980,23 @@ def cmd_atualizar(_args) -> None:
     dados = carregar_buscas()
     rotulos = {b.get("rotulo") for b in dados.get("buscas", [])}
     novas = [dict(b, inicializada=False) for b in remotas if b.get("rotulo") not in rotulos]
-    if novas:
+    alteradas = 0
+    por_rotulo = {b.get("rotulo"): b for b in remotas}
+    for b in dados.get("buscas", []):
+        r = por_rotulo.get(b.get("rotulo"))
+        if r:
+            novo = {k: v for k, v in r.items() if k != "inicializada"}
+            if any(b.get(k) != v for k, v in novo.items()):
+                b.update(novo)
+                alteradas += 1
+                print(f"✔ busca atualizada: {b['rotulo']}")
+    if novas or alteradas:
         dados.setdefault("buscas", []).extend(novas)
         salvar_buscas(dados)
     for b in novas:
         print(f"✔ busca nova: {b['rotulo']}")
-    if not novas:
-        print("✔ nenhuma busca nova")
+    if not novas and not alteradas:
+        print("✔ nenhuma busca nova ou alterada")
     print("Agora reinicie o monitor para ele usar a versão nova:")
     print("   Stop-ScheduledTask DinamitePrice; Start-ScheduledTask DinamitePrice")
 
