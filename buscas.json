@@ -171,6 +171,21 @@
       "tipo": "enifler",
       "termo": "rtx 5080",
       "filtro": "(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Telegram · canais de ofertas de hardware",
+      "tipo": "telegram",
+      "a_cada": 1,
+      "canais": [
+        "peperaiohardware",
+        "ofertagpu",
+        "mmpromo",
+        "ofertaskabum",
+        "placasdevideo",
+        "pelando",
+        "promobit"
+      ],
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {

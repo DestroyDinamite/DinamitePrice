@@ -765,6 +765,46 @@ def buscar_enifler(termo: str, filtro: str) -> dict[str, dict]:
     return itens
 
 
+def buscar_telegram(canais: list[str], filtro: str) -> dict[str, dict]:
+    """Lê as últimas mensagens de canais públicos do Telegram (t.me/s/<canal>), sem login."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    for canal in canais:
+        try:
+            resp = requests.get(f"https://t.me/s/{canal}", headers=HEADERS, timeout=30)
+            resp.raise_for_status()
+        except Exception as e:
+            print(f"   Telegram @{canal}: erro {e}")
+            continue
+        soup = BeautifulSoup(resp.text, "html.parser")
+        msgs = soup.select("div.tgme_widget_message[data-post]")
+        casam = 0
+        ultima = ""
+        for m in msgs:
+            post = m["data-post"]
+            t = m.select_one("time[datetime]")
+            if t:
+                ultima = t["datetime"][:16].replace("T", " ")
+            corpo = m.select_one(".tgme_widget_message_text")
+            texto = corpo.get_text("\n", strip=True) if corpo else ""
+            linhas = [l.strip() for l in texto.splitlines() if l.strip()]
+            if not linhas or not regex.search(texto):
+                continue
+            titulo = next((l for l in linhas if regex.search(l)), linhas[0])
+            if _EXCLUIR_PROMOBIT.search(titulo):
+                continue
+            casam += 1
+            valores = re.findall(r"R\$\s*([\d.]+,\d{2}|[\d.]+)", texto)
+            precos = [p for p in (parse_preco(v) for v in valores) if p and p > 1000]
+            itens[f"tg:{post}"] = {
+                "loja": f"Telegram @{canal}", "nome": titulo[:110], "url": f"https://t.me/{post}",
+                "preco": min(precos) if precos else None, "parcelado": None, "disponivel": True,
+                "assinatura": re.sub(r"\W+", "", titulo.lower())[:60],
+            }
+        print(f"   Telegram @{canal}: {len(msgs)} mensagens (última {ultima or '—'} UTC), {casam} de 5070 Ti/5080")
+    return itens
+
+
 def _curto(nome: str) -> str:
     """Nome enxuto para o resumo: tira 'Placa de Vídeo', 'NVIDIA GeForce' e detalhes técnicos."""
     n = re.sub(r"(?i)placa\s+de\s+v[íi]deo|placa\s+gr[áa]fica|nvidia|geforce|\bgpu\b", "", nome)
@@ -787,17 +827,32 @@ def salvar_buscas(dados: dict) -> None:
     ARQUIVO_BUSCAS.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def checar_buscas() -> None:
+_ULTIMA_EXECUCAO: dict[str, float] = {}
+
+
+def checar_buscas(so_devidas: bool = False, padrao_min: float = 5) -> bool:
+    """Confere as buscas. Com so_devidas=True, só as que já passaram do próprio intervalo ('a_cada')."""
     dados = carregar_buscas()
     if not dados.get("buscas"):
-        return
+        return False
+    if so_devidas:
+        agora_s = time.time()
+        devidas = [b for b in dados["buscas"]
+                   if agora_s - _ULTIMA_EXECUCAO.get(b.get("rotulo", ""), 0) >= float(b.get("a_cada", padrao_min)) * 60 - 5]
+        if not devidas:
+            return False
+    else:
+        devidas = list(dados["buscas"])
     estado = dados.setdefault("itens", {})
     eventos: list[tuple[str, str, str, str, int]] = []   # (título, mensagem, link, linha do resumo, prioridade)
 
-    for b in dados["buscas"]:
+    for b in devidas:
         rotulo = b.get("rotulo") or b.get("termo") or b.get("url")
+        _ULTIMA_EXECUCAO[b.get("rotulo", "")] = time.time()
         try:
-            if b["tipo"] == "kabum":
+            if b["tipo"] == "telegram":
+                encontrados = buscar_telegram(b["canais"], b["filtro"])
+            elif b["tipo"] == "kabum":
                 encontrados = buscar_kabum(b["termo"], b["filtro"])
             elif b["tipo"] == "enifler":
                 encontrados = buscar_enifler(b["termo"], b["filtro"])
@@ -838,6 +893,17 @@ def checar_buscas() -> None:
                 estado[chave] = item
                 if primeira_vez:
                     continue
+                if chave.startswith("tg:"):
+                    assin = item.get("assinatura")
+                    repetida = assin and any(
+                        k != chave and k.startswith("tg:") and v.get("assinatura") == assin
+                        for k, v in estado.items())
+                    if not repetida:
+                        canal = item["loja"].replace("Telegram ", "")
+                        eventos.append((f"📣 {item['nome'][:70]}",
+                                        f"{brl(novo) if novo else ''} · {canal} no Telegram".strip(" ·"),
+                                        item["url"], f"📣 {_curto(item['nome'])}: {brl(novo) if novo else '?'} · {canal}", 0))
+                    continue
                 if chave.startswith("promobit:"):
                     if novo:  # oferta postada no Promobit e ainda ativa
                         loja = item["loja"].replace("Promobit → ", "")
@@ -849,6 +915,9 @@ def checar_buscas() -> None:
                                 f"🆕 {_curto(item['nome'])}: {brl(novo) if novo else 'sem estoque'} · {_loja_curta(item['loja'])}", 2))
                 continue
 
+            if chave.startswith("tg:"):  # mensagem já vista: nada a comparar
+                ant["visto_em"] = agora()
+                continue
             velho = ant.get("preco")
             nome = item["nome"][:60]
             if novo and velho and abs(novo - velho) >= 0.01:
@@ -899,7 +968,16 @@ def checar_buscas() -> None:
         dados["buscas"].extend(b for b in no_disco if b.get("rotulo") not in conhecidas)
     except Exception:
         pass
+    # mensagens antigas do Telegram (mais de 3 dias) não precisam mais ser lembradas
+    limite = datetime.now().timestamp() - 3 * 86400
+    for k in [k for k, v in estado.items() if k.startswith("tg:")]:
+        try:
+            if datetime.strptime(estado[k].get("visto_em", ""), "%Y-%m-%d %H:%M").timestamp() < limite:
+                del estado[k]
+        except ValueError:
+            pass
     salvar_buscas(dados)
+    return True
 
 
 def cmd_buscas(_args) -> None:
@@ -916,6 +994,18 @@ def cmd_check(_args) -> None:
     checar_buscas()
 
 
+def _girar_log() -> None:
+    """Se o monitor.log passar de 5 MB, guarda como monitor.log.old e começa um novo."""
+    log = Path(__file__).with_name("monitor.log")
+    try:
+        if log.stat().st_size > 5_000_000:
+            sys.stdout.close()
+            log.replace(log.with_suffix(".log.old"))
+            _abrir_log()
+    except Exception:
+        pass
+
+
 def _abrir_log() -> None:
     """Quando roda escondido (pythonw), grava tudo em monitor.log."""
     log = Path(__file__).with_name("monitor.log")
@@ -926,18 +1016,24 @@ def _abrir_log() -> None:
 
 
 def cmd_run(args) -> None:
-    if sys.stdout is None or args.log:
+    usa_log = sys.stdout is None or args.log
+    if usa_log:
         _abrir_log()
-    print(f"Monitorando a cada {args.minutos} min. Ctrl+C para parar.")
+    print(f"Monitorando: lojas a cada {args.minutos} min (buscas com 'a_cada' próprio seguem o delas). Ctrl+C para parar.")
+    ultima_produtos = 0.0
     while True:
         inicio = time.time()
-        print(f"\n— {agora()} —")
         try:
-            checar_todos()
-            checar_buscas()
+            if usa_log:
+                _girar_log()
+            print(f"\n— {agora()} —")
+            if inicio - ultima_produtos >= args.minutos * 60 - 5:
+                checar_todos()
+                ultima_produtos = inicio
+            checar_buscas(so_devidas=True, padrao_min=args.minutos)
         except Exception as e:  # nunca para por causa de um erro pontual
             print(f"erro inesperado: {e!r} — tento de novo na próxima")
-        time.sleep(max(10, args.minutos * 60 - (time.time() - inicio)))
+        time.sleep(max(5, 60 - (time.time() - inicio)))  # acorda a cada minuto e roda o que estiver na hora
 
 
 def _walk(obj, achados, profundidade=0):
