@@ -1,6 +1,6 @@
 # 💰 DinamitePrice: Monitor de Preços
 
-Monitora o preço de placas de vídeo (RTX 5070 Ti e RTX 5080) em várias lojas e avisa no celular, pelo app **ntfy**, quando:
+Monitora o preço de placas de vídeo (RTX 5070 Ti e RTX 5080), do teclado Razer BlackWidow V4 Pro e de monitores de 320 Hz em várias lojas e avisa no celular, pelo app **ntfy**, quando:
 - 📉📈 o preço muda
 - 🆕 aparece um anúncio novo
 - ✅ um produto volta ao estoque

@@ -383,7 +383,7 @@ def buscar_kabum(termo: str, filtro: str) -> dict[str, dict]:
             nome = str(o["name"])
             if not regex.search(nome):
                 continue
-            if "placa de v" not in (str(o.get("category", "")) + nome).lower():
+            if not _EXIGIR.search(str(o.get("category", "")) + " " + nome) or _EXCLUIR_EXTRA.search(nome):
                 continue  # ignora PCs montados, notebooks etc.
             chave = f"kabum:{o['code']}"
             if chave in itens:
@@ -438,7 +438,7 @@ def buscar_ml_loja(url: str, filtro: str, nome_loja: str) -> dict[str, dict]:
         if not titulo_el or not link_el:
             continue
         nome = titulo_el.get_text(" ", strip=True)
-        if not regex.search(nome) or "placa" not in nome.lower():
+        if not regex.search(nome) or not _EXIGIR.search(nome) or _EXCLUIR_EXTRA.search(nome):
             continue
         link = link_el["href"].split("#")[0]
         m = re.search(r"(MLBU?-?\d+)", link)
@@ -464,7 +464,7 @@ def _cards_patoloco(soup: BeautifulSoup, filtro: re.Pattern) -> dict[str, dict]:
         url = link_el["href"].split("?")[0].split("#")[0]
         nome = (link_el.get("title") or link_el.get_text(" ", strip=True)
                 or card.get_text(" | ", strip=True).split(" | ")[0]).strip()
-        if not filtro.search(nome) or "placa" not in nome.lower():
+        if not filtro.search(nome) or not _EXIGIR.search(nome) or _EXCLUIR_EXTRA.search(nome):
             continue
         texto = card.get_text(" ", strip=True)
         pix = re.search(r"R\$\s*([\d.]+,\d{2})\s*à vista", texto)
@@ -520,7 +520,7 @@ def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[s
             lista = []
         for p in lista:
             nome = str(p.get("productName") or "")
-            if not regex.search(nome) or "placa" not in nome.lower():
+            if not regex.search(nome) or not _EXIGIR.search(nome) or _EXCLUIR_EXTRA.search(nome):
                 continue
             ofertas = []
             for sku in p.get("items", []):
@@ -539,6 +539,11 @@ def buscar_vtex(dominio: str, termo: str, filtro: str, nome_loja: str) -> dict[s
             break
     return itens
 
+
+# Regras da busca em andamento: o nome precisa casar com _EXIGIR e não pode casar com _EXCLUIR_EXTRA
+_EXIGIR = re.compile(r"placa", re.I)
+_NUNCA = re.compile(r"(?!x)x")
+_EXCLUIR_EXTRA = _NUNCA
 
 _LINK_PRODUTO = re.compile(r"^(https?://[^/]+)?/produto/")
 _SEM_ESTOQUE = re.compile(r"esgotad|indispon|avise-me|todos vendidos|sem estoque", re.I)
@@ -599,9 +604,9 @@ def buscar_cards_pix(url_busca: str, termo: str, filtro: str, nome_loja: str, pr
                           img.get("alt") if img else None]
             candidatos += card.get_text(" | ", strip=True).split(" | ")
             nome = next((c.strip() for c in candidatos
-                         if c and len(c.strip()) >= 20 and "R$" not in c and "placa" in c.lower()), "")
+                         if c and len(c.strip()) >= 20 and "R$" not in c and _EXIGIR.search(c)), "")
             nome = nome or re.split(r"\s*R\$", a.get_text(" ", strip=True))[0]
-            if not regex.search(nome) or "placa" not in nome.lower():
+            if not regex.search(nome) or not _EXIGIR.search(nome) or _EXCLUIR_EXTRA.search(nome):
                 continue
             texto = card.get_text(" ", strip=True)
             antes_pix = re.split(r"no\s*pix", texto, flags=re.I)[0]
@@ -659,7 +664,7 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
         casam = 0
         for oid, o in ofertas.items():
             titulo = str(o["offerTitle"])
-            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo):
+            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo) or _EXCLUIR_EXTRA.search(titulo):
                 continue
             casam += 1
             st = str(o.get("offerStatusName", "")).upper()
@@ -675,7 +680,7 @@ def buscar_promobit(urls: list[str], filtro: str) -> dict[str, dict]:
                 "disponivel": ativa,
             }
         cats = Counter(f"{o.get('categorySlug')}/{o.get('subcategorySlug')}" for o in ofertas.values())
-        print(f"   Promobit {url}: {len(ofertas)} ofertas {dict(status)}, {casam} de 5070 Ti/5080")
+        print(f"   Promobit {url}: {len(ofertas)} ofertas {dict(status)}, {casam} de interesse")
         datas = sorted(str(o.get("offerPublished", ""))[:16].replace("T", " ") for o in ofertas.values() if o.get("offerPublished"))
         print(f"      categorias: {dict(cats.most_common(8))}")
         if datas:
@@ -707,7 +712,7 @@ def buscar_aliexpress(termo: str, filtro: str, paginas: int = 2, envio_brasil: b
             pedacos = card.get_text(" | ", strip=True).split(" | ")
             candidatos = [tit.get("title") if tit else None, tit.get_text(" ", strip=True) if tit else None] + pedacos
             nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 15 and "R$" not in c), "")
-            if not nome or not regex.search(nome) or _EXCLUIR_PROMOBIT.search(nome):
+            if not nome or not regex.search(nome) or _EXCLUIR_PROMOBIT.search(nome) or _EXCLUIR_EXTRA.search(nome):
                 continue
             valores = re.findall(r"R\$\s*([\d.]+,\d{2})", card.get_text(" ", strip=True))
             preco = parse_preco(valores[0]) if valores else None
@@ -748,7 +753,7 @@ def buscar_enifler(termo: str, filtro: str) -> dict[str, dict]:
             candidatos = [a.get("title"), tit.get_text(" ", strip=True) if tit else None,
                           img.get("alt") if img else None] + card.get_text(" | ", strip=True).split(" | ")
             nome = next((c.strip() for c in candidatos if c and len(c.strip()) >= 20 and "R$" not in c), "")
-            if not regex.search(nome) or "placa" not in nome.lower() or _EXCLUIR_PROMOBIT.search(nome):
+            if not regex.search(nome) or not _EXIGIR.search(nome) or _EXCLUIR_PROMOBIT.search(nome) or _EXCLUIR_EXTRA.search(nome):
                 continue
             texto = card.get_text(" ", strip=True)
             antes_pix = re.split(r"no\s*pix", texto, flags=re.I)[0]
@@ -791,7 +796,7 @@ def buscar_telegram(canais: list[str], filtro: str) -> dict[str, dict]:
             if not linhas or not regex.search(texto):
                 continue
             titulo = next((l for l in linhas if regex.search(l)), linhas[0])
-            if _EXCLUIR_PROMOBIT.search(titulo):
+            if _EXCLUIR_PROMOBIT.search(titulo) or _EXCLUIR_EXTRA.search(titulo):
                 continue
             casam += 1
             valores = re.findall(r"R\$\s*([\d.]+,\d{2}|[\d.]+)", texto)
@@ -801,7 +806,7 @@ def buscar_telegram(canais: list[str], filtro: str) -> dict[str, dict]:
                 "preco": min(precos) if precos else None, "parcelado": None, "disponivel": True,
                 "assinatura": re.sub(r"\W+", "", titulo.lower())[:60],
             }
-        print(f"   Telegram @{canal}: {len(msgs)} mensagens (última {ultima or '—'} UTC), {casam} de 5070 Ti/5080")
+        print(f"   Telegram @{canal}: {len(msgs)} mensagens (última {ultima or '—'} UTC), {casam} de interesse")
     return itens
 
 
@@ -853,7 +858,7 @@ def buscar_pelando(urls: list[str], filtro: str) -> dict[str, dict]:
             if len(exemplos) < 3:
                 exemplos.append(f"{titulo[:50]} | {('R$ %.0f' % min(valores)) if valores else 'sem preço'} | "
                                 f"{loja or '?'}{' | expirada' if expirada else ''}")
-            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo):
+            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo) or _EXCLUIR_EXTRA.search(titulo):
                 continue
             casam += 1
             precos = [v for v in valores if v > 1000]
@@ -864,7 +869,7 @@ def buscar_pelando(urls: list[str], filtro: str) -> dict[str, dict]:
                 "preco": (min(precos) if precos else None) if not expirada else None,
                 "parcelado": None, "disponivel": not expirada,
             }
-        print(f"   Pelando {url}: {len(links)} ofertas, {casam} de 5070 Ti/5080")
+        print(f"   Pelando {url}: {len(links)} ofertas, {casam} de interesse")
         for e in exemplos:
             print(f"      ex.: {e}")
     return itens
@@ -914,6 +919,9 @@ def checar_buscas(so_devidas: bool = False, padrao_min: float = 5) -> bool:
     for b in devidas:
         rotulo = b.get("rotulo") or b.get("termo") or b.get("url")
         _ULTIMA_EXECUCAO[b.get("rotulo", "")] = time.time()
+        global _EXIGIR, _EXCLUIR_EXTRA
+        _EXIGIR = re.compile(b.get("exigir", "placa"), re.I)
+        _EXCLUIR_EXTRA = re.compile(b["excluir"], re.I) if b.get("excluir") else _NUNCA
         try:
             if b["tipo"] == "telegram":
                 encontrados = buscar_telegram(b["canais"], b["filtro"])

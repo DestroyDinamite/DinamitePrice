@@ -18,13 +18,14 @@
       "rotulo": "Setup Ninja · RTX 5070 Ti / 5080",
       "tipo": "ml_loja",
       "nome_loja": "Setup Ninja",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b",
       "inicializada": true,
       "urls": [
         "https://www.mercadolivre.com.br/loja/setup-ninja",
         "https://www.mercadolivre.com.br/loja/setup-ninja/up-que-importa",
         "https://www.mercadolivre.com.br/loja/setup-ninja/shadow"
-      ]
+      ],
+      "exigir": "placa|teclado|monitor"
     },
     {
       "rotulo": "Pato Loco · RTX 5070 Ti / 5080",
@@ -76,8 +77,9 @@
         "https://www.mercadolivre.com.br/loja/gigabyte"
       ],
       "nome_loja": "Gigabyte oficial",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
-      "inicializada": true
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b",
+      "inicializada": true,
+      "exigir": "placa|teclado|monitor"
     },
     {
       "rotulo": "Inno3D oficial (Mercado Livre)",
@@ -86,8 +88,9 @@
         "https://www.mercadolivre.com.br/loja/inno3d"
       ],
       "nome_loja": "Inno3D oficial",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
-      "inicializada": true
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b",
+      "inicializada": true,
+      "exigir": "placa|teclado|monitor"
     },
     {
       "rotulo": "NVIDIA oficial (Mercado Livre)",
@@ -96,8 +99,9 @@
         "https://www.mercadolivre.com.br/loja/nvidia"
       ],
       "nome_loja": "NVIDIA oficial",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
-      "inicializada": true
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b",
+      "inicializada": true,
+      "exigir": "placa|teclado|monitor"
     },
     {
       "rotulo": "TNT Info · RTX 5070 Ti",
@@ -120,8 +124,9 @@
         "https://www.mercadolivre.com.br/loja/tnt-info"
       ],
       "nome_loja": "TNT Info",
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
-      "inicializada": true
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b",
+      "inicializada": true,
+      "exigir": "placa|teclado|monitor"
     },
     {
       "rotulo": "Terabyte · RTX 5070 Ti",
@@ -134,17 +139,6 @@
       "tipo": "terabyte",
       "termo": "rtx 5080",
       "filtro": "(?<!\\d)5080(?!\\d)"
-    },
-    {
-      "rotulo": "Promobit · RTX 5070 Ti / 5080",
-      "tipo": "promobit",
-      "urls": [
-        "https://www.promobit.com.br/promocoes/placa-video/s/",
-        "https://www.promobit.com.br/promocoes/informatica/",
-        "https://www.promobit.com.br/promocoes/hardware-perifericos/s/"
-      ],
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)",
-      "inicializada": true
     },
     {
       "rotulo": "AliExpress (envio do Brasil) · RTX 5070 Ti",
@@ -173,7 +167,141 @@
       "filtro": "(?<!\\d)5080(?!\\d)"
     },
     {
-      "rotulo": "Telegram · canais de ofertas de hardware",
+      "rotulo": "Kabum · BlackWidow V4 Pro",
+      "tipo": "kabum",
+      "termo": "blackwidow v4 pro",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "Kabum · Monitor 320 Hz",
+      "tipo": "kabum",
+      "termo": "monitor 320hz",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "Terabyte · BlackWidow V4 Pro",
+      "tipo": "terabyte",
+      "termo": "blackwidow v4 pro",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "Terabyte · Monitor 320 Hz",
+      "tipo": "terabyte",
+      "termo": "monitor 320hz",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "TNT Info · BlackWidow V4 Pro",
+      "tipo": "tnt",
+      "termo": "blackwidow v4 pro",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "TNT Info · Monitor 320 Hz",
+      "tipo": "tnt",
+      "termo": "monitor 320hz",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "Enifler · BlackWidow V4 Pro",
+      "tipo": "enifler",
+      "termo": "blackwidow v4 pro",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "Enifler · Monitor 320 Hz",
+      "tipo": "enifler",
+      "termo": "monitor 320hz",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "Americanas · BlackWidow V4 Pro",
+      "tipo": "vtex",
+      "termo": "blackwidow v4 pro",
+      "dominio": "www.americanas.com.br",
+      "nome_loja": "Americanas",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "Americanas · Monitor 320 Hz",
+      "tipo": "vtex",
+      "termo": "monitor 320hz",
+      "dominio": "www.americanas.com.br",
+      "nome_loja": "Americanas",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "Ibyte · BlackWidow V4 Pro",
+      "tipo": "vtex",
+      "termo": "blackwidow v4 pro",
+      "dominio": "www.ibyte.com.br",
+      "nome_loja": "Ibyte",
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "Ibyte · Monitor 320 Hz",
+      "tipo": "vtex",
+      "termo": "monitor 320hz",
+      "dominio": "www.ibyte.com.br",
+      "nome_loja": "Ibyte",
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "AliExpress (envio do Brasil) · BlackWidow V4 Pro",
+      "tipo": "aliexpress",
+      "termo": "blackwidow v4 pro",
+      "envio_brasil": true,
+      "filtro": "black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)",
+      "exigir": "teclado|keyboard|black\\s*-?\\s*widow",
+      "excluir": "75\\s*%|\\bmini\\b|keycaps?|\\bkit\\b|combo|notebook"
+    },
+    {
+      "rotulo": "AliExpress (envio do Brasil) · Monitor 320 Hz",
+      "tipo": "aliexpress",
+      "termo": "monitor 320hz",
+      "envio_brasil": true,
+      "filtro": "(?<!\\d)320\\s*hz\\b",
+      "exigir": "monitor",
+      "excluir": "notebook|laptop|suporte|\\bcabo\\b|\\bkit\\b|combo|braço|tablet|celular|smartphone"
+    },
+    {
+      "rotulo": "Promobit",
+      "tipo": "promobit",
+      "urls": [
+        "https://www.promobit.com.br/promocoes/placa-video/s/",
+        "https://www.promobit.com.br/promocoes/informatica/",
+        "https://www.promobit.com.br/promocoes/hardware-perifericos/s/",
+        "https://www.promobit.com.br/promocoes/teclado-mouse/s/",
+        "https://www.promobit.com.br/promocoes/monitor-gamer/s/"
+      ],
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b"
+    },
+    {
+      "rotulo": "Telegram · canais de ofertas",
       "tipo": "telegram",
       "a_cada": 1,
       "canais": [
@@ -184,18 +312,20 @@
         "placasdevideo",
         "promobit"
       ],
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b"
     },
     {
-      "rotulo": "Pelando · RTX 5070 Ti / 5080",
+      "rotulo": "Pelando",
       "tipo": "pelando",
       "a_cada": 2,
       "urls": [
         "https://www.pelando.com.br/recentes",
         "https://www.pelando.com.br/busca/rtx-5080",
-        "https://www.pelando.com.br/busca/rtx-5070-ti"
+        "https://www.pelando.com.br/busca/rtx-5070-ti",
+        "https://www.pelando.com.br/busca/blackwidow-v4-pro",
+        "https://www.pelando.com.br/busca/monitor-320hz"
       ],
-      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)|black\\s*-?\\s*widow\\s*v4\\s*pro(?!\\s*75)|(?<!\\d)320\\s*hz\\b"
     }
   ],
   "itens": {
@@ -1413,6 +1543,9 @@
   },
   "removidas": [
     "AliExpress · RTX 5070 Ti",
-    "AliExpress · RTX 5080"
+    "AliExpress · RTX 5080",
+    "Pelando · RTX 5070 Ti / 5080",
+    "Promobit · RTX 5070 Ti / 5080",
+    "Telegram · canais de ofertas de hardware"
   ]
 }
