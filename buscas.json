@@ -182,7 +182,6 @@
         "mmpromo",
         "ofertaskabum",
         "placasdevideo",
-        "pelando",
         "promobit"
       ],
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
