@@ -805,6 +805,67 @@ def buscar_telegram(canais: list[str], filtro: str) -> dict[str, dict]:
     return itens
 
 
+_LOJAS_CONHECIDAS = ["Magazine Luiza", "Magalu", "Amazon", "Mercado Livre", "KaBuM", "Kabum", "Pichau", "Terabyte",
+                     "Shopee", "AliExpress", "Casas Bahia", "Americanas", "Carrefour", "Fast Shop", "Ponto",
+                     "Extra", "Submarino", "Girafa", "Pato Loco", "TNT", "Enifler", "Inpower", "Gigantec"]
+
+
+def buscar_pelando(urls: list[str], filtro: str) -> dict[str, dict]:
+    """Lê ofertas do Pelando (páginas de recentes e de busca), bloco por bloco."""
+    regex = re.compile(filtro, re.I)
+    itens: dict[str, dict] = {}
+    for url in urls:
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=40)
+            resp.raise_for_status()
+        except Exception as e:
+            print(f"   Pelando {url}: erro {e}")
+            continue
+        soup = BeautifulSoup(resp.text, "html.parser")
+        links: dict[str, object] = {}
+        for a in soup.select('a[href^="/d/"], a[href^="https://www.pelando.com.br/d/"]'):
+            links.setdefault(a["href"].split("?")[0].replace("https://www.pelando.com.br", ""), a)
+        exemplos, casam = [], 0
+        for href, a in links.items():
+            # menor bloco em volta do link que tenha um preço e só esta oferta
+            card = a
+            for _ in range(8):
+                pai = card.parent
+                if pai is None:
+                    break
+                outros = {x["href"].split("?")[0].replace("https://www.pelando.com.br", "")
+                          for x in pai.select('a[href*="/d/"]')}
+                if len(outros) > 1:
+                    break
+                card = pai
+            texto = card.get_text(" | ", strip=True)
+            titulo = (a.get("title") or a.get_text(" ", strip=True) or "").strip()
+            if len(titulo) < 10:
+                titulo = next((p for p in texto.split(" | ") if len(p) >= 15 and "R$" not in p), titulo)
+            valores = [parse_preco(v) for v in re.findall(r"R\$\s*([\d.]+(?:,\d{2})?)", texto)]
+            valores = [v for v in valores if v]
+            loja = next((l for l in _LOJAS_CONHECIDAS if re.search(rf"\b{re.escape(l)}\b", texto, re.I)), "")
+            expirada = bool(re.search(r"expirad|encerrad|esgotad", texto, re.I))
+            if len(exemplos) < 3:
+                exemplos.append(f"{titulo[:50]} | {('R$ %.0f' % min(valores)) if valores else 'sem preço'} | "
+                                f"{loja or '?'}{' | expirada' if expirada else ''}")
+            if not regex.search(titulo) or _EXCLUIR_PROMOBIT.search(titulo):
+                continue
+            casam += 1
+            precos = [v for v in valores if v > 1000]
+            slug = href.rstrip("/").rsplit("/", 1)[-1]
+            itens[f"pelando:{slug}"] = {
+                "loja": f"Pelando → {loja or 'loja'}", "nome": titulo[:110],
+                "url": f"https://www.pelando.com.br{href}",
+                "preco": (min(precos) if precos else None) if not expirada else None,
+                "parcelado": None, "disponivel": not expirada,
+            }
+        print(f"   Pelando {url}: {len(links)} ofertas, {casam} de 5070 Ti/5080")
+        for e in exemplos:
+            print(f"      ex.: {e}")
+    return itens
+
+
 def _curto(nome: str) -> str:
     """Nome enxuto para o resumo: tira 'Placa de Vídeo', 'NVIDIA GeForce' e detalhes técnicos."""
     n = re.sub(r"(?i)placa\s+de\s+v[íi]deo|placa\s+gr[áa]fica|nvidia|geforce|\bgpu\b", "", nome)
@@ -858,6 +919,8 @@ def checar_buscas(so_devidas: bool = False, padrao_min: float = 5) -> bool:
                 encontrados = buscar_enifler(b["termo"], b["filtro"])
             elif b["tipo"] == "aliexpress":
                 encontrados = buscar_aliexpress(b["termo"], b["filtro"], envio_brasil=b.get("envio_brasil", False))
+            elif b["tipo"] == "pelando":
+                encontrados = buscar_pelando(b["urls"], b["filtro"])
             elif b["tipo"] == "promobit":
                 encontrados = buscar_promobit(b["urls"], b["filtro"])
             elif b["tipo"] == "terabyte":
@@ -904,11 +967,13 @@ def checar_buscas(so_devidas: bool = False, padrao_min: float = 5) -> bool:
                                         f"{brl(novo) if novo else ''} · {canal} no Telegram".strip(" ·"),
                                         item["url"], f"📣 {_curto(item['nome'])}: {brl(novo) if novo else '?'} · {canal}", 0))
                     continue
-                if chave.startswith("promobit:"):
-                    if novo:  # oferta postada no Promobit e ainda ativa
-                        loja = item["loja"].replace("Promobit → ", "")
-                        eventos.append((f"🔥 Promobit: {item['nome'][:60]}", f"{brl(novo)} na {loja}", item["url"],
-                                        f"🔥 {_curto(item['nome'])}: {brl(novo)} · {loja} (Promobit)", 0))
+                if chave.startswith(("promobit:", "pelando:")):
+                    fonte = "Promobit" if chave.startswith("promobit:") else "Pelando"
+                    if item["disponivel"]:  # oferta postada na comunidade e ainda ativa
+                        loja = item["loja"].split("→")[-1].strip()
+                        preco_txt = brl(novo) if novo else "preço no link"
+                        eventos.append((f"🔥 {fonte}: {item['nome'][:60]}", f"{preco_txt} na {loja}", item["url"],
+                                        f"🔥 {_curto(item['nome'])}: {preco_txt} · {loja} ({fonte})", 0))
                     continue
                 eventos.append((f"🆕 Novo anúncio: {item['nome'][:60]}",
                                 f"{item['loja']}\n{brl(novo) if novo else 'sem estoque'}", item["url"],
@@ -934,7 +999,7 @@ def checar_buscas(so_devidas: bool = False, padrao_min: float = 5) -> bool:
             elif novo and not velho:
                 eventos.append((f"✅ Voltou ao estoque: {nome}", f"{item['loja']}\n{brl(novo)}", item["url"],
                                 f"✅ {_curto(item['nome'])}: voltou por {brl(novo)} · {_loja_curta(item['loja'])}", 1))
-            elif velho and not novo and ant.get("disponivel") and not chave.startswith("promobit:"):
+            elif velho and not novo and ant.get("disponivel") and not chave.startswith(("promobit:", "pelando:")):
                 eventos.append((f"⛔ Esgotou: {nome}", f"{item['loja']}\nÚltimo preço: {brl(velho)}", item["url"],
                                 f"⛔ {_curto(item['nome'])}: esgotou · {_loja_curta(item['loja'])}", 4))
 

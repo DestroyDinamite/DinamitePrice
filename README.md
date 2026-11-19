@@ -92,6 +92,7 @@ Hoje ele cobre:
 - **Enifler:** busca do site (preço no Pix)
 - **AliExpress:** busca do site (RTX 5070 Ti e 5080). Atenção: tem anúncio suspeito, o filtro ainda vai ser criado
 - **Telegram:** canais públicos de ofertas de hardware (Peperaio, Quero Placa de Vídeo, MM Promo, Ofertas KaBuM...), conferidos **a cada 1 minuto**, sem precisar de conta. Chega como "📣".
+- **Pelando:** ofertas recentes e buscas de RTX 5070 Ti/5080, a cada 2 minutos. Chega como "🔥 Pelando".
 - **Promobit:** ofertas de RTX 5070 Ti/5080 postadas pela comunidade (cobre Magalu, Pichau, Mercado Livre, Amazon...). Chega como "🔥 Promobit".
 - **Lojas oficiais no Mercado Livre:** Gigabyte, NVIDIA e Inno3D
 

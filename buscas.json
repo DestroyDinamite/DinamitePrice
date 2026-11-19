@@ -185,6 +185,17 @@
         "promobit"
       ],
       "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
+    },
+    {
+      "rotulo": "Pelando · RTX 5070 Ti / 5080",
+      "tipo": "pelando",
+      "a_cada": 2,
+      "urls": [
+        "https://www.pelando.com.br/recentes",
+        "https://www.pelando.com.br/busca/rtx-5080",
+        "https://www.pelando.com.br/busca/rtx-5070-ti"
+      ],
+      "filtro": "(?<!\\d)5070\\s*-?\\s*ti\\b|(?<!\\d)5080(?!\\d)"
     }
   ],
   "itens": {
