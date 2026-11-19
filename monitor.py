@@ -821,6 +821,7 @@ def buscar_pelando(urls: list[str], filtro: str) -> dict[str, dict]:
         except Exception as e:
             print(f"   Pelando {url}: erro {e}")
             continue
+        resp.encoding = "utf-8"  # o site não informa a codificação; sem isso os acentos saem errados
         soup = BeautifulSoup(resp.text, "html.parser")
         links: dict[str, object] = {}
         for a in soup.select('a[href^="/d/"], a[href^="https://www.pelando.com.br/d/"]'):
@@ -842,7 +843,10 @@ def buscar_pelando(urls: list[str], filtro: str) -> dict[str, dict]:
             titulo = (a.get("title") or a.get_text(" ", strip=True) or "").strip()
             if len(titulo) < 10:
                 titulo = next((p for p in texto.split(" | ") if len(p) >= 15 and "R$" not in p), titulo)
-            valores = [parse_preco(v) for v in re.findall(r"R\$\s*([\d.]+(?:,\d{2})?)", texto)]
+            # o preço pode vir quebrado em pedaços ("R$" | "10.599" | ",90"): junta antes de procurar
+            corrido = card.get_text(" ", strip=True)
+            achados = re.findall(r"R\$\s*(\d{1,3}(?:\s*\.\s*\d{3})*(?:\s*,\s*\d{2})?)", corrido)
+            valores = [parse_preco(re.sub(r"\s+", "", v)) for v in achados]
             valores = [v for v in valores if v]
             loja = next((l for l in _LOJAS_CONHECIDAS if re.search(rf"\b{re.escape(l)}\b", texto, re.I)), "")
             expirada = bool(re.search(r"expirad|encerrad|esgotad", texto, re.I))
